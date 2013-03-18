@@ -8,9 +8,9 @@ char *p;
 
 p=a;
 
-unsigned int addr;
+//long int addr;
 
-addr=p;
+//addr=p;
 
 printf("addr of a is %lx\n",p);  //&(p[0])
 printf("addr of b is %lx\n",p+1);
