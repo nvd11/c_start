@@ -12,10 +12,10 @@ p=a;
 
 //addr=p;
 
-printf("addr of a is %lx\n",p);  //&(p[0])
-printf("addr of b is %lx\n",p+1);
-printf("addr of c is %lx\n",p+2);
-printf("addr of d is %lx\n",p+3);
+printf("addr of a is %p\n",p);  //&(p[0])
+printf("addr of b is %p\n",p+1);
+printf("addr of c is %p\n",p+2);
+printf("addr of d is %p\n",p+3);
 
 
 printf(" \nbit done\n");
