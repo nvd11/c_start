@@ -27,6 +27,7 @@ int main(){
 	//i=bit32_64();
 	//i = showsize();
 	i = para1();
+	i = array_point_1();
 	
 	return i;
 }
