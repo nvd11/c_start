@@ -3,6 +3,7 @@
 #include "array.h"
 #include "char_array.h"
 #include "bit32_64.h"
+#include "pointer1.h"
 
 int i;
 
@@ -23,7 +24,9 @@ int main(){
 	//i = char_array6(); // char_array.h
 
 	//i = bisearch1(); // bisearch.h
-	i=bit32_64();
-	i = showsize();
+	//i=bit32_64();
+	//i = showsize();
+	i = para1();
+	
 	return i;
 }

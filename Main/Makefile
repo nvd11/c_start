@@ -1,5 +1,5 @@
 CC=gcc
-OBJS=main.o sort.o array.o char_array.o bisearch.o bit32_64.o
+OBJS=main.o sort.o array.o char_array.o bisearch.o bit32_64.o pointer1.o
 HEADPATH=./headfiles/
 EXEC=main
 
@@ -24,6 +24,10 @@ bisearch.o: ../bisearch/bisearch.c
 
 bit32_64.o: ../bit/bit32_64.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
+
+pointer1.o: ../Data_struct/pointer1.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
+
 
 cleanall:
 	rm -rf ${EXEC} *.o

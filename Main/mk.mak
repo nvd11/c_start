@@ -8,6 +8,7 @@ make array.o
 make char_array.o
 make bisearch.o
 make bit32_64.o
+make pointer1.o 
 
 
 #############################################
