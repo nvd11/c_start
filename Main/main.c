@@ -4,6 +4,7 @@
 #include "char_array.h"
 #include "bit32_64.h"
 #include "pointer1.h"
+#include "struct1.h"
 
 int i;
 
@@ -26,8 +27,10 @@ int main(){
 	//i = bisearch1(); // bisearch.h
 	//i=bit32_64();
 	//i = showsize();
-	i = para1();
-	i = array_point_1();
-	
+	//i = para1();
+	//i = array_point_1();
+	//i = struct1(); 
+	i = struct3();
+		
 	return i;
 }

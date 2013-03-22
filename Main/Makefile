@@ -1,5 +1,5 @@
 CC=gcc
-OBJS=main.o sort.o array.o char_array.o bisearch.o bit32_64.o pointer1.o
+OBJS=main.o sort.o array.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o
 HEADPATH=./headfiles/
 EXEC=main
 
@@ -28,12 +28,13 @@ bit32_64.o: ../bit/bit32_64.c
 pointer1.o: ../Data_struct/pointer1.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 
+struct1.o: ../Data_struct/struct1.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
 
 cleanall:
 	rm -rf ${EXEC} *.o
 clean:
 	rm -rf *o
-
 
 ###  $< ==> means the first one of the objs which are depended ex main.c of line 12
 ###  $@ ==> means the current obj
