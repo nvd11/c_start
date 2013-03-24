@@ -15,6 +15,7 @@ int main(){
 	//i = array3(); // array.h
         //i = array4(); // array.h
         //i = array5(); // array.h
+        //i = array6(); // array.h
  
 
 	//i = char_array1(); // char_array.h
@@ -30,7 +31,11 @@ int main(){
 	//i = para1();
 	//i = array_point_1();
 	//i = struct1(); 
-	i = struct3();
+	//i = struct3();
+	i = pointer1();
+	i = pointer2();
+	i = pointer3();
+	i = pointer4();
 		
 	return i;
 }

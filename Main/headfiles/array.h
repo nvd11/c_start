@@ -5,4 +5,5 @@
 	int array3();
 	int array4();
 	int array5();
+	int array6();
 #endif

@@ -43,3 +43,81 @@ int array_point_1(){
 	show_array_1(a,5);	
 	printf("array_point done\n");
 }
+
+
+
+int pointer1(){
+	char * p= "ab";	
+	char * p2 =  p+1;
+
+	printf ("char p is %s\n",p);		
+	printf ("p is %p\n",p);		
+	printf ("p2 is %p\n",p2);		
+
+	int * p3= (int *)123111111;	
+	int * p4 =  p3+1;
+
+	printf ("p is %p\n",p3);		
+	printf ("p2 is %p\n",p4);		
+
+	printf("pointer1 done\n");
+	printf("\n");
+
+	return 0;
+}
+
+int pointer2(){
+	char *last = "sd";
+	char *ap = (char *)last + sizeof(last);
+	char *ap2 = (char *)&last + sizeof(last);
+	char **ap3 = (char **)&last + sizeof(last);
+	char **ap4 = &last + sizeof(last);
+	char *bp = last + sizeof(last);
+	char *cp = (char *)(last + sizeof(last));
+
+	printf ("last is %p\n",last);		
+	printf ("ap is %p\n",ap);		
+	printf ("ap2 is %p\n",ap2);		
+	printf ("ap3 is %p\n",ap3);		
+	printf ("ap4 is %p\n",ap3);		
+	printf ("bp is %p\n",bp);		
+	printf ("cp is %p\n",cp);		
+	printf("\n");
+}
+	
+int pointer3(){
+	int abc =123;
+	int *last = &abc;
+	int *ap = (int *)last + 2;
+	int *bp = last + 2;
+	int *cp = (int *)(last + 2); 
+
+	printf ("last is %p\n",last);		
+	printf ("ap is %p\n",ap);		
+	printf ("bp is %p\n",bp);		
+	printf ("cp is %p\n",cp);		
+	printf("\n");
+}
+	
+int pointer4(){
+	int abc =97;
+	char *ap = (char *) &abc;
+
+	printf ("ap is %p\n",ap);		
+	printf ("*ap is %c\n",*ap);		
+
+	abc=-143;
+	printf ("*ap is %c\n",*ap);		
+
+	abc=831;
+	printf ("*ap is %c\n",*ap);		
+
+	abc=2147483647;
+	printf ("*ap is %c\n",*ap);		
+
+	abc=2147483648;
+	printf ("*ap is %c\n",*ap);		
+
+	printf("\n");
+}
+	

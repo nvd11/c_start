@@ -117,3 +117,10 @@ int array5(){
 	printf("array5 done\n");
 	return 0;
 }
+
+int array6(){
+	int A[]={1,2,3,4,5};
+
+        printf("A[3] is %d\n", A[3]);
+        return 0;
+}
