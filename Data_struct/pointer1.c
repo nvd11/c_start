@@ -20,9 +20,7 @@ int para1(void){
 
 	f2(&i);
 
-	printf("i=%d \n",i);
-
-	printf("para done\n");
+	printf("i=%d \n",i); printf("para done\n");
 	return 0;
 }
 
@@ -118,6 +116,21 @@ int pointer4(){
 	abc=2147483648;
 	printf ("*ap is %c\n",*ap);		
 
+	
+	printf("\n");
+}
+	
+int pointer5(){
+	int i =97;
+	int * p = &i;
+	char * q = (char *)&i;
+
+	printf ("*p is %d\n",*p);		
+	printf ("*q is %d\n",*q);		
+	printf ("*q is %c\n",*q);		
+
+
+	
 	printf("\n");
 }
 	
