@@ -89,8 +89,7 @@ int pointer3(){
 	int *ap = (int *)last + 2;
 	int *bp = last + 2;
 	int *cp = (int *)(last + 2); 
-
-	printf ("last is %p\n",last);		
+printf ("last is %p\n",last);		
 	printf ("ap is %p\n",ap);		
 	printf ("bp is %p\n",bp);		
 	printf ("cp is %p\n",cp);		
@@ -134,3 +133,44 @@ int pointer5(){
 	printf("\n");
 }
 	
+int pointer6(){
+	int i = 24930;
+
+	int * p = &i;
+	char * q = (char *)&i;
+
+	printf ("*p is %d\n",*p);		
+	printf ("*q is %c\n",*q);		
+	printf ("*(q+1) is %c\n",*(q+1));		
+
+	printf("\n");
+
+}
+
+int pointer7(){
+	int i = -24930;
+
+	int * p = &i;
+	char * q = (char *)&i;
+
+	printf ("*p is %d\n",*p);		
+	printf ("*q is %c\n",*q);		
+	printf ("*(q+1) is %c\n",*(q+1));		
+
+	printf("\n");
+
+}
+
+int mem1(){
+	int i = 2;
+	int ii = -3;
+        int iii = i + ii;
+        return 0;
+}
+
+int pointer_main(){
+	int i;
+        i = mem1(); 
+	return 0;
+
+}

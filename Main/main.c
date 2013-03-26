@@ -32,11 +32,7 @@ int main(){
 	//i = array_point_1();
 	//i = struct1(); 
 	//i = struct3();
-	//i = pointer1();
-	//i = pointer2();
-	//i = pointer3();
-	//i = pointer4();
-	i = pointer5();
+	i = pointer_main();
 		
 	return i;
 }
