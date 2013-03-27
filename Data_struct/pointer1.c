@@ -164,6 +164,7 @@ int pointer7(){
 int mem1(){
 	int i = 2;
 	int ii = -3;
+	int aii = -2147483648;
         int iii = i + ii;
         return 0;
 }
