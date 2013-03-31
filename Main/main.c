@@ -5,12 +5,14 @@
 #include "bit32_64.h"
 #include "pointer1.h"
 #include "struct1.h"
+#include "memory_1.h"
 
 int i;
 
 int main(){
 	//i = sort(); // sort.h
-	i = array_main(); // array.h
+	//i = array_main(); // array.h
+	i = memory_main(); // memory.h 
  
 
 	//i = char_array1(); // char_array.h

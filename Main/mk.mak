@@ -12,6 +12,7 @@ make bisearch.o
 make bit32_64.o
 make pointer1.o 
 make struct1.o 
+make memory_1.o 
 
 #############################################
 
