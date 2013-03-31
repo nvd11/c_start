@@ -10,12 +10,7 @@ int i;
 
 int main(){
 	//i = sort(); // sort.h
-	//i = array1(); // array.h
-	//i = array2(); // array.h
-	//i = array3(); // array.h
-        //i = array4(); // array.h
-        //i = array5(); // array.h
-        //i = array6(); // array.h
+	i = array_main(); // array.h
  
 
 	//i = char_array1(); // char_array.h
@@ -32,7 +27,7 @@ int main(){
 	//i = array_point_1();
 	//i = struct1(); 
 	//i = struct3();
-	i = pointer_main();
+	//i = pointer_main();
 		
 	return i;
 }

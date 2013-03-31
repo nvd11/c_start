@@ -1,4 +1,13 @@
 #include <stdio.h>
+#include <malloc_1.h>
+
+int array_main(){
+	int i;
+	i=malloc_main();		
+	printf("array_mian done!\n");
+	return 0;
+}
+
 
 int array1(){
 	int A[10]={10,1,2,3,4,5,6,7,8,9};
