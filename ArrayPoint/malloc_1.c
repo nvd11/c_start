@@ -40,12 +40,18 @@ int malloc_2(){
 int malloc_3(){
 	int len = 7;
 	int * a = (int *)malloc(sizeof(int) * len);
-
 	int i;
 	for (i=0; i <len ; i++){
 		a[i] = (i+1)*2;
 	}	
 	i = p_array_int_1(a,len); //a function to print the array which defined by user	
+	printf("address is %p\n", a);
+	
+	len++;
+	a = (int *)realloc(a, sizeof(int)* (len));
+	a[len-1]= 40;
+	i = p_array_int_1(a,len); //a function to print the array which defined by user	
+	printf("address is %p\n", a);
 
 	free(a);
 	return 0;
