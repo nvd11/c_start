@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "sort.h"
 #include "array.h"
+#include "array1.h"
 #include "char_array.h"
 #include "bit32_64.h"
 #include "pointer1.h"
@@ -12,7 +13,8 @@ int i;
 int main(){
 	//i = sort(); // sort.h
 	//i = array_main(); // array.h
-	i = memory_main(); // memory.h 
+	i = array1_main(); // array.h
+	//i = memory_main(); // memory.h 
  
 
 	//i = char_array1(); // char_array.h
