@@ -4,8 +4,9 @@ HEADPATH=./headfiles/
 EXEC=main
 
 
-$(EXEC):
+$(EXEC): ${OBJS}
 	${CC} ${OBJS} -o ${EXEC}
+
 main.o: main.c  
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 
