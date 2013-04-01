@@ -1,5 +1,5 @@
 CC=gcc
-OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o
+OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o arrlist.o
 HEADPATH=./headfiles/
 EXEC=main
 
@@ -45,6 +45,8 @@ struct1.o: ../Data_struct/struct1.c
 memory_1.o: ../Memory/memory_1.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 
+arrlist.o: ../Data_struct/arrlist.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
 
 cleanall:
 	rm -rf ${EXEC} *.o
