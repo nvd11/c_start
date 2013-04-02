@@ -26,14 +26,14 @@ int malloc_1(){
 
 
 int malloc_2(){
-	int i;
-	int c = 7;
-	int a[c];
+	//int i;
+	//int c = 7;
+	//int a[c];
 
-	a[0] = 1;
-	
-	i = p_array_int_1(a,8);	
-	return 0;
+	//a[0] = 1;
+	//
+	//i = p_array_int_1(a,8);	
+	//return 0;
 }
 
 

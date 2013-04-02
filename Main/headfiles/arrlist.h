@@ -9,7 +9,7 @@
 		int increment;
 	};
 
-	void init_arr(struct Arrlist * pArr, int length);  //inital an arraylist
+	void Arr_init(struct Arrlist * pArr, int length);  //inital an arraylist
 	bool Arr_add();   // add an element to the end of array
         bool Arr_insert(); // insert an element to any place
 	bool Arr_delete(); // delete an element
