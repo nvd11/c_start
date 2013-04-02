@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+//#include <stdbool.h>
 #include "arrlist.h"
 
 void Arr_init(struct Arrlist * pArr, int length){
@@ -19,9 +19,9 @@ void Arr_init(struct Arrlist * pArr, int length){
 }
 
 
-bool Arr_is_empty(struct Arrlist * pArr){
+BOOL Arr_is_empty(struct Arrlist * pArr){
 	if (0 == pArr->cur_len){
-		return true;
+		return TRUE;
 	}
-	return false;
+	return FALSE;
 }
