@@ -33,6 +33,7 @@ void show_array_1(int *p, int len){
 		printf("%d ",p[i]);
 	}	
 	printf("\n ");
+	
 }
 	
 int array_point_1(){
@@ -40,6 +41,7 @@ int array_point_1(){
 
 	show_array_1(a,5);	
 	printf("array_point done\n");
+	return 0;
 }
 
 
@@ -81,6 +83,7 @@ int pointer2(){
 	printf ("bp is %p\n",bp);		
 	printf ("cp is %p\n",cp);		
 	printf("\n");
+	return 0;
 }
 	
 int pointer3(){
@@ -89,11 +92,12 @@ int pointer3(){
 	int *ap = (int *)last + 2;
 	int *bp = last + 2;
 	int *cp = (int *)(last + 2); 
-printf ("last is %p\n",last);		
+	printf ("last is %p\n",last);		
 	printf ("ap is %p\n",ap);		
 	printf ("bp is %p\n",bp);		
 	printf ("cp is %p\n",cp);		
 	printf("\n");
+	return 0;
 }
 	
 int pointer4(){
@@ -117,6 +121,7 @@ int pointer4(){
 
 	
 	printf("\n");
+	return 0;
 }
 	
 int pointer5(){
@@ -131,6 +136,7 @@ int pointer5(){
 
 	
 	printf("\n");
+	return 0;
 }
 	
 int pointer6(){
@@ -144,6 +150,7 @@ int pointer6(){
 	printf ("*(q+1) is %c\n",*(q+1));		
 
 	printf("\n");
+	return 0;
 
 }
 
@@ -158,6 +165,7 @@ int pointer7(){
 	printf ("*(q+1) is %c\n",*(q+1));		
 
 	printf("\n");
+	return 0;
 
 }
 

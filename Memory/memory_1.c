@@ -4,7 +4,7 @@
 
 struct Student * Create_list();
 void memory_1();
-void Show_list();
+void Show_list(struct Student * pst);
 
 int memory_main(){
 	memory_1();	

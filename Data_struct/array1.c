@@ -7,6 +7,7 @@
 
 int malloc_41(int ** pa, int len){
 	*pa = (int *)realloc(*pa, sizeof(int)* (len));
+	return 0;
 }
 
 
@@ -20,7 +21,6 @@ int array1_1(){
 	Arr_init(parr1,10);
 	char empty =Arr_is_empty(parr1);
 
-	//parr1->paddr = (int *)realloc(parr1->paddr, 80);
 
 	printf("len is %d\n",parr1->len);
 	printf("is empty is %c\n",empty);
@@ -30,10 +30,16 @@ int array1_1(){
 		Arr_add(parr1,(i+1) * 3);
 	}
 
-	//i = Arr_ext(&(parr1->paddr),80);
+	printf("cur_len is %d\n",parr1->cur_len);
+	Arr_show(parr1);
 
-	//Arr_add(parr1,200);
-
+	for (i=0; i<200; i++){
+		Arr_add(parr1,(i+1)*4);
+	
+	}
+	
+    	printf("cur_len is %d\n",parr1->cur_len);
+	printf("len is %d\n",parr1->len);
 	Arr_show(parr1);
 		
 

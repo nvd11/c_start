@@ -28,6 +28,6 @@
 	BOOL Arr_is_empty(struct Arrlist * pArr); 
 	BOOL Arr_is_full(struct Arrlist * pArr); 
 	void Arr_sort();
-	void Arr_show(); 
+	void Arr_show(struct Arrlist * pArr); 
 			
 #endif

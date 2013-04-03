@@ -39,13 +39,14 @@ int struct2(void) {
 	return 0;
 }
 
-void sv();
-void pv();
+void sv(struct Student * pst);
+void pv(struct Student * pst);
 
 int struct3(void) {
 	struct Student st;
 	sv(&st);
 	pv(&st);
+	return 0;
 }
 
 void sv(struct Student * pst){

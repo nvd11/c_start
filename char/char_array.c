@@ -83,7 +83,7 @@ int char_array4(){
 	printf("sizeof(d) is %ld\n",sizeof(d));
        	printf("strlen(d) is %ld\n\n",strlen(d));
 
-	char e[6]="cdefdg"; //not string
+	char e[7]="cdefdg"; // string and char e[6]="cdefdg" show error in solaris 10
 	printf("char e is %s\n",e);
 	printf("sizeof(e) is %ld\n",sizeof(e));
        	printf("strlen(e) is %ld\n\n",strlen(e));

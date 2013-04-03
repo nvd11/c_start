@@ -5,7 +5,7 @@
 int malloc_1();
 int malloc_2();
 int malloc_3();
-int malloc_4();
+int malloc_4(int ** pa, int len);
 
 int malloc_main(){
 	int i;
@@ -34,7 +34,7 @@ int malloc_2(){
 	//a[0] = 1;
 	//
 	//i = p_array_int_1(a,8);	
-	//return 0;
+	return 0;
 }
 
 
@@ -61,4 +61,5 @@ int malloc_3(){
 
 int malloc_4(int ** pa, int len){
 	*pa = (int *)realloc(*pa, sizeof(int)* (len));
+	return 0;
 }
