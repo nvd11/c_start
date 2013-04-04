@@ -31,6 +31,15 @@ int array1_1(){
 	}
 
 	printf("cur_len is %d\n",parr1->cur_len);
+	Arr_set(parr1, 9,Arr_get(parr1,8));
+	Arr_set(parr1, 10,100);
+
+
+	Arr_insert(parr1, 10,11111);
+	Arr_insert(parr1, 3,11111);
+	Arr_insert(parr1, 3,22222);
+	Arr_delete(parr1, 4);
+	
 	Arr_show(parr1);
 	//Arr_extend(parr1);
 
@@ -42,7 +51,9 @@ int array1_1(){
     	printf("cur_len is %d\n",parr1->cur_len);
 	printf("len is %d\n",parr1->len);
 	Arr_show(parr1);
-		
+	
+	Arr_invert(parr1);		
+	Arr_show(parr1);
 
 	printf("array1_main done\n");
 	return 0;
