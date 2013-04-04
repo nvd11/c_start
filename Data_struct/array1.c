@@ -32,6 +32,7 @@ int array1_1(){
 
 	printf("cur_len is %d\n",parr1->cur_len);
 	Arr_show(parr1);
+	//Arr_extend(parr1);
 
 	for (i=0; i<200; i++){
 		Arr_add(parr1,(i+1)*4);

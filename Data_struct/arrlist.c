@@ -3,8 +3,7 @@
 //#include <stdbool.h>
 #include "arrlist.h"
 
-static BOOL Arr_extend(struct Arrlist * pArr);
-int Arr_ext(int ** pa, int len);
+static BOOL Arr_extend(struct Arrlist * pArr, int increment);
 
 void Arr_init(struct Arrlist * pArr, int length){
 	pArr->paddr = (int *)malloc(sizeof(int) * length);
@@ -53,11 +52,9 @@ void Arr_show(struct Arrlist * pArr){
 
 BOOL Arr_add(struct Arrlist * pArr, int val){
 	if (TRUE == Arr_is_full(pArr)){
-		if (FALSE == Arr_extend(pArr)){
+		if (FALSE == Arr_extend(pArr, pArr->increment)){ 
 			return FALSE;
 		}
-	        //int ii;
-		//ii= Arr_ext(&((*pArr).paddr));
 	}
 	
 	pArr->paddr[pArr->cur_len] = val; // assign the value
@@ -65,21 +62,15 @@ BOOL Arr_add(struct Arrlist * pArr, int val){
 	return TRUE;
 }
 
-int Arr_ext(int ** pa, int len){
-	*pa = (int *)realloc(*pa, sizeof(int)* (len));
-	return 0;
-}
 
-static BOOL Arr_extend(struct Arrlist * pArr){
-   
-
+static BOOL Arr_extend(struct Arrlist * pArr, int increment){
 	
-	pArr->paddr = (int *)realloc(pArr->paddr, sizeof(int) * (pArr->cur_len + pArr->increment));
+	pArr->paddr = (int *)realloc(pArr->paddr, sizeof(int) * (pArr->cur_len + increment));
 
 	if (NULL == pArr->paddr){
 		return FALSE;
 	}
 	
-	pArr->len += pArr->increment;
+	pArr->len += increment;
 	return TRUE;
 }
