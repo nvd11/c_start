@@ -5,6 +5,7 @@
 
 static BOOL Arr_extend(struct Arrlist * pArr, int increment);
 static Arr_error(char * pstr);
+static Arr_sort_dtl(int * piar, int len);
 
 
 
@@ -185,6 +186,42 @@ void Arr_invert(struct Arrlist * pArr){
 	}
 }
 	
+void Arr_sort(struct Arrlist * pArr){
+	if (TRUE != pArr->is_inited){
+		Arr_error("Array is not inited yet!!");
+	}
+
+	if (TRUE == Arr_is_empty(pArr)){
+		return;
+	}
+	
+	Arr_sort_dtl(pArr->paddr, pArr->cur_len);
+
+}
+
+static Arr_sort_dtl(int * piar, int len){
+	int i, j;
+	int m = 0;
+	int mv;
+	for (i=0; i< len; i++){  //exec times
+		if (i<m){
+			m=i-1;
+		}
+		else{
+			m=i;
+		}
+
+		for (j=m+1; j< len; j++){ //from second to the last one
+			if (piar[m] > piar[j]){
+				mv = piar[m];
+				piar[m] = piar[j];
+				piar[j] = mv;
+				m=j;
+			}
+		} 
+	} 
+
+}
 
 static Arr_error(char * pstr){
 	while (*pstr != '\0'){

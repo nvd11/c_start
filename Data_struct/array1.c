@@ -51,9 +51,16 @@ int array1_1(){
     	printf("cur_len is %d\n",parr1->cur_len);
 	printf("len is %d\n",parr1->len);
 	Arr_show(parr1);
+	printf("\n");
 	
 	Arr_invert(parr1);		
 	Arr_show(parr1);
+	printf("\n");
+	
+
+	Arr_sort(parr1);	
+	Arr_show(parr1);
+	printf("\n");
 
 	printf("array1_main done\n");
 	return 0;
