@@ -10,18 +10,18 @@
 		BOOL is_inited;
 	};
 
-	typedef struct Arrlist Arrint;
+	typedef struct Arrlist ARRINT;
 
-	void Arr_init(Arrint * pArr, int length);  //inital an arraylist
-	BOOL Arr_add(Arrint * pArr, int val);   // add an element to the end of array
-        BOOL Arr_insert(Arrint * pArr, int position, int val); // insert an element to any place
-	BOOL Arr_delete(Arrint * pArr, int index); // delete an element
-	int Arr_get(Arrint * pArr, int index);  //get the index of an element by value
-	BOOL Arr_set(Arrint * pArr, int index, int val);  //set the value to specified element in the array 
-	BOOL Arr_is_empty(Arrint * pArr); 
-	BOOL Arr_is_full(Arrint * pArr); 
-	void Arr_invert(Arrint * pArr); //invert the array
-	void Arr_sort(Arrint * pArr);
-	void Arr_show(Arrint * pArr); 
+	void Arr_init(ARRINT * pArr, int length);  //inital an arraylist
+	BOOL Arr_add(ARRINT * pArr, int val);   // add an element to the end of array
+        BOOL Arr_insert(ARRINT * pArr, int position, int val); // insert an element to any place
+	BOOL Arr_delete(ARRINT * pArr, int index); // delete an element
+	int Arr_get(ARRINT * pArr, int index);  //get the index of an element by value
+	BOOL Arr_set(ARRINT * pArr, int index, int val);  //set the value to specified element in the array 
+	BOOL Arr_is_empty(ARRINT * pArr); 
+	BOOL Arr_is_full(ARRINT * pArr); 
+	void Arr_invert(ARRINT * pArr); //invert the array
+	void Arr_sort(ARRINT * pArr);
+	void Arr_show(ARRINT * pArr); 
 			
 #endif
