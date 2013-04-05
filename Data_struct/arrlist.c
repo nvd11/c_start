@@ -4,9 +4,11 @@
 #include "arrlist.h"
 
 static BOOL Arr_extend(struct Arrlist * pArr, int increment);
-static Arr_error(char * pstr);
-static Arr_sort_dtl(int * piar, int len);
-
+static void Arr_error(char * pstr);
+static void Arr_sort_dtl(int * piar, int len);
+static int Arr_p_array(int * p, int len);
+static void Arr_sort_dtlmaopao(int * piar, int len);
+  
 
 
 void Arr_init(struct Arrlist * pArr, int length){
@@ -195,35 +197,72 @@ void Arr_sort(struct Arrlist * pArr){
 		return;
 	}
 	
-	Arr_sort_dtl(pArr->paddr, pArr->cur_len);
+	Arr_sort_dtlmaopao(pArr->paddr, pArr->cur_len);
 
 }
 
-static Arr_sort_dtl(int * piar, int len){
+
+static void Arr_sort_dtlmaopao(int * piar, int len){
+	int i, j, m;
+	for (i=0; i< len; i++){
+		//printf("\n");
+		//printf("i is %d\n",i);
+		//Arr_p_array(piar,len);
+
+		for (j=i+1; j< len; j++){
+			//printf("mv is %d\n",piar[i]);
+			//Arr_p_array(piar,len);
+			if (piar[i] > piar[j]){
+				m =piar[i];	
+				piar[i] = piar[j];
+				piar[j] = m;
+					
+			}
+			//Arr_p_array(piar,len);
+		}
+	}	
+}
+static void Arr_sort_dtl(int * piar, int len){
 	int i, j;
 	int m = 0;
 	int mv;
+	int curval;
+	int k;
+	BOOL flag;
 	for (i=0; i< len; i++){  //exec times
-		if (i<m){
-			m=i-1;
-		}
-		else{
-			m=i;
-		}
+		m=0;
+		if ((FALSE == flag)){
+			m=i;	
+		}	
 
+		//printf("\n");
+		//printf("i is %d\n",i);
+		//Arr_p_array(piar,len);
+		//printf("m is %d\n",m);
+		flag=FALSE;
+		mv = piar[m];
+		//printf("mv is %d\n",mv);
 		for (j=m+1; j< len; j++){ //from second to the last one
-			if (piar[m] > piar[j]){
-				mv = piar[m];
+			if (mv > piar[j]){
 				piar[m] = piar[j];
-				piar[j] = mv;
-				m=j;
+				//Arr_p_array(piar,len);
+
+				for(k=j-1; k>m; k--){
+					piar[k+1] = piar[k];
+					//Arr_p_array(piar,len);
+				}
+				piar[m+1] = mv;
+				//Arr_p_array(piar,len);
+				m++;
+				flag = TRUE;
 			}
 		} 
 	} 
 
 }
 
-static Arr_error(char * pstr){
+
+static void Arr_error(char * pstr){
 	while (*pstr != '\0'){
 		printf("%c",*pstr);	
 		pstr++;
@@ -245,3 +284,17 @@ static BOOL Arr_extend(struct Arrlist * pArr, int increment){
 	return TRUE;
 }
 
+
+static int Arr_p_array(int * p, int len){
+	int i;
+	for (i=0; i<len; i++){
+		if (i < (len -1)) {
+			printf("%d, ",*p); 	
+		}
+		else{
+			printf("%d\n",*p); 	
+		}
+		p++;
+	}
+	return 0;
+}
