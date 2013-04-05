@@ -3,6 +3,7 @@ OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisear
 HEADPATH=./headfiles/
 EXEC=main
 
+all: cleanall ${EXEC}
 
 $(EXEC): ${OBJS}
 	${CC} ${OBJS} -o ${EXEC}
@@ -50,8 +51,10 @@ arrlist.o: Data_struct/arrlist.c
 
 cleanall:
 	rm -rf ${EXEC} *.o
+
 clean:
 	rm -rf *o
+
 
 ###  $< ==> means the first one of the objs which are depended ex main.c of line 12
 ###  $@ ==> means the current obj
