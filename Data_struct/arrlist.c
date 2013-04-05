@@ -3,7 +3,7 @@
 //#include <stdbool.h>
 #include "arrlist.h"
 
-static BOOL Arr_extend(struct Arrlist * pArr, int increment);
+static BOOL Arr_extend(Arrint * pArr, int increment);
 static void Arr_error(char * pstr);
 static void Arr_sort_dtl(int * piar, int len);
 static int Arr_p_array(int * p, int len);
@@ -11,7 +11,7 @@ static void Arr_sort_dtlmaopao(int * piar, int len);
   
 
 
-void Arr_init(struct Arrlist * pArr, int length){
+void Arr_init(Arrint * pArr, int length){
 	pArr->paddr = (int *)malloc(sizeof(int) * length);
 		
 	if (NULL == pArr->paddr){
@@ -28,7 +28,7 @@ void Arr_init(struct Arrlist * pArr, int length){
 }
 
 
-BOOL Arr_is_empty(struct Arrlist * pArr){
+BOOL Arr_is_empty(Arrint * pArr){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -39,7 +39,7 @@ BOOL Arr_is_empty(struct Arrlist * pArr){
 	return FALSE;
 }
 
-BOOL Arr_is_full(struct Arrlist * pArr){
+BOOL Arr_is_full(Arrint * pArr){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -50,7 +50,7 @@ BOOL Arr_is_full(struct Arrlist * pArr){
 	return FALSE;
 }
 
-void Arr_show(struct Arrlist * pArr){
+void Arr_show(Arrint * pArr){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -69,7 +69,7 @@ void Arr_show(struct Arrlist * pArr){
 	return;
 }	
 
-BOOL Arr_add(struct Arrlist * pArr, int val){
+BOOL Arr_add(Arrint * pArr, int val){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -88,7 +88,7 @@ BOOL Arr_add(struct Arrlist * pArr, int val){
 
 
 
-BOOL Arr_set(struct Arrlist * pArr, int index, int val){
+BOOL Arr_set(Arrint * pArr, int index, int val){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -102,7 +102,7 @@ BOOL Arr_set(struct Arrlist * pArr, int index, int val){
 	return TRUE;
 }
 
-int Arr_get(struct Arrlist * pArr, int  index){
+int Arr_get(Arrint * pArr, int  index){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -115,7 +115,7 @@ int Arr_get(struct Arrlist * pArr, int  index){
 	return pArr->paddr[index];	
 }
 
-BOOL Arr_insert(struct Arrlist * pArr, int position, int val){
+BOOL Arr_insert(Arrint * pArr, int position, int val){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -144,7 +144,7 @@ BOOL Arr_insert(struct Arrlist * pArr, int position, int val){
 }
 
 
-BOOL Arr_delete(struct Arrlist * pArr, int index){
+BOOL Arr_delete(Arrint * pArr, int index){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -166,7 +166,7 @@ BOOL Arr_delete(struct Arrlist * pArr, int index){
 
 }
 
-void Arr_invert(struct Arrlist * pArr){
+void Arr_invert(Arrint * pArr){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -188,7 +188,7 @@ void Arr_invert(struct Arrlist * pArr){
 	}
 }
 	
-void Arr_sort(struct Arrlist * pArr){
+void Arr_sort(Arrint * pArr){
 	if (TRUE != pArr->is_inited){
 		Arr_error("Array is not inited yet!!");
 	}
@@ -272,7 +272,7 @@ static void Arr_error(char * pstr){
 	exit(-1);
 }
 
-static BOOL Arr_extend(struct Arrlist * pArr, int increment){
+static BOOL Arr_extend(Arrint * pArr, int increment){
 	
 	pArr->paddr = (int *)realloc(pArr->paddr, sizeof(int) * (pArr->cur_len + increment));
 
