@@ -15,4 +15,9 @@
 *.exe
 *.out
 *.app
+
+#user
 main
+.project
+*autosave
+.cproject
