@@ -10,6 +10,9 @@
 	
 	typedef struct person PERSON;
 
+	PERSON link_create(void); //assign a piece of memory to the head_node, and return address of head node
+
+
 
 
 
