@@ -64,6 +64,7 @@ BOOL link_add(LINKPERSON * pLink, PERSON * pnode){
 	pLink->ptail->pnext = pnode;
 	pnode->pnext = NULL;
 	pLink->ptail = pnode;
+	pLink->len++;
 	return TRUE;
 }
 
@@ -78,13 +79,12 @@ void link_traverse(LINKPERSON * pLink){
 	}
 
 	PERSON * pnode;
-	pnode = pLink->phead->pnext;  //phead->pnext
+	pnode = pLink->phead;  //phead
 
-	while (NULL != pnode->pnext){
-		person_print(pnode);
+	while(NULL != pnode->pnext){
 		pnode = pnode->pnext;
+		person_print(pnode);
 	}
-
 	return;
 }
 
