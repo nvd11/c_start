@@ -12,7 +12,7 @@
 
 	typedef struct Arrlist ARRINT;
 
-	void Arr_init(ARRINT * pArr, int length);  //inital an arraylist
+	ARRINT * Arr_init(int length);  //inital an arraylist
 	BOOL Arr_add(ARRINT * pArr, int val);   // add an element to the end of array
         BOOL Arr_insert(ARRINT * pArr, int position, int val); // insert an element to any place
 	BOOL Arr_delete(ARRINT * pArr, int index); // delete an element

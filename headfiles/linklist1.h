@@ -11,7 +11,7 @@
 	typedef struct person PERSON;
 
 	struct Link_person{   //just a struct for linklist,  it is not a node of linklist
-		PERSON * plist;   //address of the Headnode of linklist
+		PERSON * phead;   //address of the Headnode of linklist
 		PERSON * ptail;  // address of the tailnode, yes it's not a neccssity, but it can make the operation easily
 		int len; //numbers of the nodes which contains the userful data.it's not a neccssity, but it can make the operation easily
 		BOOL is_inited; // judge whether the linklist is inited
@@ -21,10 +21,13 @@
 	typedef struct Link_person LINKPERSON;
 
 	//init a new block()
-	PERSON * person_new(int id, char *pname);
+	PERSON * person_new(int id,char *pname);
 
 	//init a Linklist
-	BOOL link_init(LINKPERSON * pLink, int len);
+	LINKPERSON * link_create(int len);
+
+	//judge whether the linklist is empty
+	BOOL link_is_empty(LINKPERSON * pLink);
 
 	//add a node to the tail of Linklist
 	BOOL link_add(LINKPERSON * plink, PERSON * pnode);

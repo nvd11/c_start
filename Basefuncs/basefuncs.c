@@ -10,9 +10,8 @@ int basefuncs_main(){
 
 
 void bf_1(){
-	ARRINT parr1;
-	Arr_init(&parr1,10);
-	Arr_add(&parr1,10);
-	Arr_add(&parr1,20);
-	Arr_show(&parr1);
+	ARRINT * parr1 = Arr_init(10);
+	Arr_add(parr1,10);
+	Arr_add(parr1,20);
+	Arr_show(parr1);
 }

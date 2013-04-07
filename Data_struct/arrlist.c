@@ -11,7 +11,9 @@ static void Arr_sort_dtlmaopao(int * piar, int len);
   
 
 
-void Arr_init(ARRINT * pArr, int length){
+ARRINT * Arr_init(int length){
+	ARRINT * pArr;
+	pArr=(ARRINT *)malloc(sizeof(ARRINT));
 	pArr->paddr = (int *)malloc(sizeof(int) * length);
 		
 	if (NULL == pArr->paddr){
@@ -24,7 +26,7 @@ void Arr_init(ARRINT * pArr, int length){
 
 	pArr->is_inited = TRUE;
 
-	return;
+	return pArr;
 }
 
 

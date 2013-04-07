@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "arrlist.h"
-#include "stdlib.h"
+#include "linklist1.h"
+#include <stdlib.h>
 
 
 
@@ -13,12 +14,10 @@ int malloc_41(int ** pa, int len){
 
 int array1_1(){
 
-	struct Arrlist arr1;
 	struct Arrlist * parr1;
 
-	parr1 = &arr1;
+	parr1 = Arr_init(10);
 	
-	Arr_init(parr1,10);
 	char empty =Arr_is_empty(parr1);
 
 
@@ -68,13 +67,9 @@ int array1_1(){
 }	
 
 int array1_2(){
-	
-	struct Arrlist arr1;
 	struct Arrlist * parr1;
 
-	parr1 = &arr1;
-
-	Arr_init(parr1,10);
+	parr1 = Arr_init(10);
 	Arr_add(parr1,3);
 	Arr_add(parr1,2);
 	Arr_add(parr1,1);
@@ -97,9 +92,21 @@ int array1_2(){
 
 }
 
+int link_1(){
+	//const char *n = "gateman poon";
+	PERSON * p1 = person_new(1,"Jason Poon" );
+
+	LINKPERSON * plink1 = link_create(10);
+
+
+	link_traverse(plink1);
+	printf("id is %d, name is %s\n",p1->id, p1->name);
+	return 0;
+}
+
 int array1_main(){
 	int i=0;
-	i=array1_1();	
+	i=link_1();
 	printf("array1_main done\n");
 	return 0;
 }

@@ -34,5 +34,7 @@ int main(){
 	//i = struct3();
 	//i = pointer_main();
 		
+	//printf("Please type any key to exit...\n");
+	//scanf("%d",&i);
 	return i;
 }
