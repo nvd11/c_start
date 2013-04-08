@@ -49,14 +49,15 @@ BOOL link_add(LINKPERSON * pLink, PERSON * pnode){
 		link_error("the linklist is not inited yet");
 	}
 
+	if (NULL == pnode){
+		printf("pnode is empty!\n");
+		return -1;
+	}
+
 	//judge whether pnode is existed in the linklist already
-	PERSON * pn = pLink->phead;
-	while (NULL != pn->pnext){
-		if (pn == pnode){
-			printf("this node is existed in linklist already\n");
-			return FALSE;
-		}
-		pn = pn->pnext;
+	if (link_getindex(pLink,pnode) > -1){
+		printf("the node is existed in linklist already!\n");
+		return FALSE;
 	}
 
 	pLink->ptail->pnext = pnode;
@@ -72,7 +73,7 @@ void link_traverse(LINKPERSON * pLink){
 	}
 
 	if (TRUE == link_is_empty(pLink)){
-		printf("the linklist is emptyi!");
+		printf("the linklist is empty\n!");
 		return;
 	}
 
@@ -86,7 +87,11 @@ void link_traverse(LINKPERSON * pLink){
 	return;
 }
 
-PERSON * link_get(LINKPERSON * pLink, int index){
+PERSON * link_getnode(LINKPERSON * pLink, int index){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
 	if ( index < 0 || index > (pLink->len -1)){
 		printf("index is over the limits");
 		return NULL;	
@@ -103,6 +108,31 @@ PERSON * link_get(LINKPERSON * pLink, int index){
 }
 
 
+int link_getindex(LINKPERSON * pLink, PERSON * pnode){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	if (NULL == pnode){
+		printf("pnode is empty!\n");
+		return -1;
+	}
+
+	PERSON * pn = pLink->phead;
+	int i=0;
+	while (NULL != pn->pnext){
+		if (pn == pnode){
+			return i;
+		}
+		i++;
+		pn = pn->pnext;
+	}
+
+	return -1;
+}
+
+
+
 
 
 BOOL link_is_empty(LINKPERSON * pLink){
@@ -117,7 +147,121 @@ BOOL link_is_empty(LINKPERSON * pLink){
 	return FALSE;
 }
 
+BOOL link_insert(LINKPERSON * pLink, PERSON * pBefore, PERSON * pnode){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
 
+	if (NULL == pBefore || NULL == pnode){
+		printf("pBefore or pnode is empty!\n");
+		return FALSE;
+	}
+
+	if (0 > link_getindex(pLink,pBefore)){
+		printf("pBefore is not existed in linklist!\n");
+		return FALSE;
+	}
+
+	if (-1 < link_getindex(pLink,pnode)){
+		printf("pnode is existed in linklist already!\n");
+		return FALSE;
+	}
+
+	pnode->pnext = pBefore->pnext;
+	pBefore->pnext = pnode;
+
+	if (NULL == pnode->pnext){
+		pLink->ptail = pnode;
+	}
+
+	pLink->len++;
+	return TRUE;
+}
+
+BOOL link_insertbyindex(LINKPERSON * pLink, int index, PERSON * pnode){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	return link_insert(pLink, link_getnode(pLink, index), pnode);
+}
+
+BOOL link_remove(LINKPERSON * pLink, PERSON * pnode){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	if (NULL == pnode){
+		printf("pnode is empty!\n");
+		return -1;
+	}
+
+	PERSON * pBefore = pLink->phead;
+	while (NULL != pBefore->pnext ){
+		if (pBefore->pnext == pnode){
+			pBefore->pnext = pnode->pnext;
+			if (NULL == pBefore->pnext){ // pnode is ptail;
+				pLink->ptail = pBefore;
+				pLink->len--;
+				return TRUE;
+			}
+		}
+
+		pBefore = pBefore->pnext;
+	}
+
+	return FALSE; //pnode is not existed in the linklist before.
+}
+
+BOOL link_delete(LINKPERSON * pLink, int index){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	PERSON * pnode = link_getnode(pLink, index);
+	if (NULL == pnode){
+		return FALSE;
+	}
+
+	if (TRUE == link_remove(pLink, pnode)){
+		free(pnode);
+		return TRUE;
+	}
+
+	return FALSE;
+
+}
+
+
+//clear a Linklist
+BOOL link_clear(LINKPERSON * pLink){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	pLink->phead-> pnext = NULL;
+	pLink->ptail = pLink->phead;
+	pLink->len=0;
+	return TRUE;
+}
+
+BOOL link_free(LINKPERSON * pLink){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	PERSON * pnode = pLink->phead;
+	PERSON * pAfter =pnode->pnext;
+	while(NULL != pAfter){
+		pnode=pAfter;
+		pAfter = pnode->pnext;
+		free(pnode);
+	}
+
+	free(pLink);
+	return TRUE;
+
+}
 static void link_error(const char * pstr){
 	printf("%s\n", pstr);
 	exit(-1);

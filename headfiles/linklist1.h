@@ -32,34 +32,37 @@
 	//add a node to the tail of Linklist
 	BOOL link_add(LINKPERSON * plink, PERSON * pnode);
 	
-        //traverse the linklist to print all of the node of linklist;	
+   //traverse the linklist to print all of the node of linklist;
 	void link_traverse(LINKPERSON * pLink);
 
-        //insert a node behind another node 
-	void link_insert(LINKPERSON * pLink, PERSON * pnode_in, PERSON * pnode_ex);	
+   //insert a node behind another node
+	BOOL link_insert(LINKPERSON * pLink, PERSON * pBefore, PERSON * pnode);
 	
-        //delete a node 
-	void link_remove(LINKPERSON * pLink, PERSON * pnode);	
+   //insert a node behind another node
+	BOOL link_insertbyindex(LINKPERSON * pLink, int index, PERSON * pnode);
+
+   //remove a node from the linklist
+	BOOL link_remove(LINKPERSON * pLink, PERSON * pnode);
+
+   //delete a node from the linklist, and free the memory space of the node
+	BOOL link_delete(LINKPERSON * pLink, int index);
 	
 	//get a the index of a node, if not existed, return -1
 	int link_getindex(LINKPERSON * pLink, PERSON * pnode);
 	
-	//get a node by index
-	PERSON * link_getnode(LINKPERSON * pLink, int index);
-
 	//get the length of Linklist
 	int link_getlength(LINKPERSON * pLink);	
 
 	//clear a Linklist
-	void link_clear(LINKPERSON * pLink);
+	BOOL link_clear(LINKPERSON * pLink);
  
 	//destroy a Linklist
-	void link_free(LINKPERSON * pLink);
+	BOOL link_free(LINKPERSON * pLink);
 	
 	//sort by id
 	void link_sort(LINKPERSON * pLink);
 
 	//get a node from linklist by index
-	PERSON * link_get(LINKPERSON * pLink, int index);
+	PERSON * link_getnode(LINKPERSON * pLink, int index);
 
 #endif

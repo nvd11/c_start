@@ -99,15 +99,23 @@ int link_1(){
 	LINKPERSON * plink1 = link_create(10);
 	
 	free(p1);
-	p1 = link_get(plink1, 3);
+	p1 = link_getnode(plink1, 3);
 
-
+	link_insert(plink1, link_getnode(plink1,4), person_new(24, "Gateman"));
+	link_insertbyindex(plink1, 5, person_new(11, "Nedved"));
+	link_remove(plink1, link_getnode(plink1,7));
+	link_delete(plink1, 7);
 	link_traverse(plink1);
+
+	//link_clear(plink1);
+	link_free(plink1);
+	//link_traverse(plink1);
+
 	printf("id is %d, name is %s\n",p1->id, p1->name);
 	printf("link1 done\n");
 	return 0;
-}
 
+}
 int array1_main(){
 	int i=0;
 	i=link_1();
