@@ -5,7 +5,7 @@
 
 static void link_error(const char * pErr);
 static void person_print(PERSON * pnode);
-
+static void link_exchange(PERSON * pPB, PERSON * pAB);
 
 LINKPERSON * link_create(int len){
 	LINKPERSON * pLink = (LINKPERSON *)malloc(sizeof(LINKPERSON));
@@ -147,18 +147,18 @@ BOOL link_is_empty(LINKPERSON * pLink){
 	return FALSE;
 }
 
-BOOL link_insert(LINKPERSON * pLink, PERSON * pBefore, PERSON * pnode){
+BOOL link_insert(LINKPERSON * pLink, PERSON * pPre, PERSON * pnode){
 	if (TRUE != pLink->is_inited){
 		link_error("the linklist is not inited yet");
 	}
 
-	if (NULL == pBefore || NULL == pnode){
-		printf("pBefore or pnode is empty!\n");
+	if (NULL == pPre || NULL == pnode){
+		printf("pPre or pnode is empty!\n");
 		return FALSE;
 	}
 
-	if (0 > link_getindex(pLink,pBefore)){
-		printf("pBefore is not existed in linklist!\n");
+	if (0 > link_getindex(pLink,pPre)){
+		printf("pPre is not existed in linklist!\n");
 		return FALSE;
 	}
 
@@ -167,8 +167,8 @@ BOOL link_insert(LINKPERSON * pLink, PERSON * pBefore, PERSON * pnode){
 		return FALSE;
 	}
 
-	pnode->pnext = pBefore->pnext;
-	pBefore->pnext = pnode;
+	pnode->pnext = pPre->pnext;
+	pPre->pnext = pnode;
 
 	if (NULL == pnode->pnext){
 		pLink->ptail = pnode;
@@ -196,18 +196,18 @@ BOOL link_remove(LINKPERSON * pLink, PERSON * pnode){
 		return -1;
 	}
 
-	PERSON * pBefore = pLink->phead;
-	while (NULL != pBefore->pnext ){
-		if (pBefore->pnext == pnode){
-			pBefore->pnext = pnode->pnext;
-			if (NULL == pBefore->pnext){ // pnode is ptail;
-				pLink->ptail = pBefore;
+	PERSON * pPre = pLink->phead;
+	while (NULL != pPre->pnext ){
+		if (pPre->pnext == pnode){
+			pPre->pnext = pnode->pnext;
+			if (NULL == pPre->pnext){ // pnode is ptail;
+				pLink->ptail = pPre;
 				pLink->len--;
 				return TRUE;
 			}
 		}
 
-		pBefore = pBefore->pnext;
+		pPre = pPre->pnext;
 	}
 
 	return FALSE; //pnode is not existed in the linklist before.
@@ -270,6 +270,84 @@ static void link_error(const char * pstr){
 static void person_print(PERSON * pnode){
 	printf("id is %d, name is %s\n", pnode->id, pnode->name );
 }
+
+
+//sort by id
+void link_sort1(LINKPERSON * pLink){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	if (pLink->len < 2){
+		return;
+	}
+
+	PERSON * pPre; //phead
+	PERSON * pAfter;
+
+	PERSON * pPB; //used to save the node address which before the pPre
+	PERSON * pAB; //used to save the node address which before the pAfter
+	int m;
+
+	for (pPB=pLink->phead,pPre=pLink->phead->pnext; NULL != pPre->pnext; pPB=pPre,pPre=pPre->pnext){
+		for (pAB=pPre,pAfter=pPre->pnext; NULL != pAfter; pAB=pAfter,pAfter=pAfter->pnext){
+			if (pPre->id > pAfter->id){
+				link_exchange(pPB,pAB);
+			}
+		}
+	}
+}
+
+static void link_exchange(PERSON * pPB, PERSON * pAB){
+	//this function will exchange the place of the next nodes of pPB and pAB
+	//if pPB->pnext == pPre ; pAB->pnext == pAfter
+	//after exchange, pPre and pAfter will exchange their index in the linklist
+
+	PERSON * m;
+	//first , exchange their Pre node;
+	m = pPB->pnext;
+	pPB->pnext = pAB->pnext;
+	pAB->pnext = m;
+
+	//then . exchange their next node;
+	m=pPB->pnext->pnext;
+	pPB->pnext->pnext = pAB->pnext->pnext;
+	pAB->pnext->pnext = m;
+}
+
+void link_sort2(LINKPERSON * pLink){
+	if (TRUE != pLink->is_inited){
+		link_error("the linklist is not inited yet");
+	}
+
+	if (pLink->len < 2){
+		return;
+	}
+
+	PERSON * pPre = pLink->phead; //phead
+	PERSON * pAfter;
+
+	PERSON * pBB; //used to save the node address which before the pBfore
+	PERSON * pAB; //used to save the node address which before the pAfter
+
+	int m;
+	while(NULL != pPre->pnext){
+		pBB=pPre;
+		pPre = pPre->pnext;
+		pAB=pPre;
+		pAfter = pPre->pnext;
+		while(NULL != pAfter){
+			if (pPre->id > pAfter->id){
+				m = pPre->id;
+				pPre->id = pAfter->id;
+				pAfter->id = m;
+			}
+			pAB = pAfter;
+			pAfter = pAfter->pnext;
+		}
+	}
+}
+
 
 PERSON * person_new(int id, char * pname){
 	PERSON * pnode;

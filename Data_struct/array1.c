@@ -97,6 +97,11 @@ int link_1(){
 	PERSON * p1 = person_new(1,"Jason Poon" );
 
 	LINKPERSON * plink1 = link_create(10);
+	//LINKPERSON * plink2;
+	//link_traverse(plink2);
+
+	//PERSON * p3;
+	//printf("id is %d, name is %s\n",p3->id, p3->name);
 	
 	free(p1);
 	p1 = link_getnode(plink1, 3);
@@ -107,6 +112,9 @@ int link_1(){
 	link_delete(plink1, 7);
 	link_traverse(plink1);
 
+	printf("will be sort now!\n\n");
+	link_sort1(plink1);
+	link_traverse(plink1);
 	//link_clear(plink1);
 	link_free(plink1);
 	//link_traverse(plink1);

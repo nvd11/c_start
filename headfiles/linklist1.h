@@ -36,7 +36,7 @@
 	void link_traverse(LINKPERSON * pLink);
 
    //insert a node behind another node
-	BOOL link_insert(LINKPERSON * pLink, PERSON * pBefore, PERSON * pnode);
+	BOOL link_insert(LINKPERSON * pLink, PERSON * pPre, PERSON * pnode);
 	
    //insert a node behind another node
 	BOOL link_insertbyindex(LINKPERSON * pLink, int index, PERSON * pnode);
