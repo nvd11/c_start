@@ -97,10 +97,14 @@ int link_1(){
 	PERSON * p1 = person_new(1,"Jason Poon" );
 
 	LINKPERSON * plink1 = link_create(10);
+	
+	free(p1);
+	p1 = link_get(plink1, 3);
 
 
 	link_traverse(plink1);
 	printf("id is %d, name is %s\n",p1->id, p1->name);
+	printf("link1 done\n");
 	return 0;
 }
 

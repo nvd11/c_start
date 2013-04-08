@@ -59,4 +59,7 @@
 	//sort by id
 	void link_sort(LINKPERSON * pLink);
 
+	//get a node from linklist by index
+	PERSON * link_get(LINKPERSON * pLink, int index);
+
 #endif

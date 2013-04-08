@@ -4,8 +4,6 @@
 #include "linklist1.h"
 
 static void link_error(const char * pErr);
-PERSON * person_new(int id, char * pname);
-BOOL link_add(LINKPERSON * pLink, PERSON * pnode);
 static void person_print(PERSON * pnode);
 
 
@@ -86,6 +84,22 @@ void link_traverse(LINKPERSON * pLink){
 		person_print(pnode);
 	}
 	return;
+}
+
+PERSON * link_get(LINKPERSON * pLink, int index){
+	if ( index < 0 || index > (pLink->len -1)){
+		printf("index is over the limits");
+		return NULL;	
+	}
+	
+	int i;
+	PERSON * pnode = pLink->phead;	
+	for( i=0;i <= index ;i++){
+		pnode = pnode->pnext;
+			
+	}  	
+
+	return pnode;
 }
 
 
