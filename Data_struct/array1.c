@@ -110,16 +110,21 @@ int link_1(){
 	link_insertbyindex(plink1, 5, person_new(11, "Nedved"));
 	link_remove(plink1, link_getnode(plink1,7));
 	link_delete(plink1, 7);
+	link_add(plink1, person_new(12, "Cindy"));
+	link_add(plink1, person_new(24, "Gateman"));
+	link_add(plink1, person_new(11, "Nvd11"));
+	link_add(plink1, person_new(49, "Lulu"));
+	link_add(plink1, person_new(47, "Alice"));
 	link_traverse(plink1);
 
 	printf("will be sort now!\n\n");
-	link_sort1(plink1);
+	link_sort(plink1);
 	link_traverse(plink1);
 	//link_clear(plink1);
 	link_free(plink1);
 	//link_traverse(plink1);
 
-	printf("id is %d, name is %s\n",p1->id, p1->name);
+	//printf("id is %d, name is %s\n",p1->id, p1->name);
 	printf("link1 done\n");
 	return 0;
 

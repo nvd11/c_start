@@ -93,7 +93,7 @@ PERSON * link_getnode(LINKPERSON * pLink, int index){
 	}
 
 	if ( index < 0 || index > (pLink->len -1)){
-		printf("index is over the limits");
+		printf("index is over the limit\n");
 		return NULL;	
 	}
 	
@@ -273,7 +273,7 @@ static void person_print(PERSON * pnode){
 
 
 //sort by id
-void link_sort1(LINKPERSON * pLink){
+void link_sort(LINKPERSON * pLink){
 	if (TRUE != pLink->is_inited){
 		link_error("the linklist is not inited yet");
 	}
@@ -287,13 +287,16 @@ void link_sort1(LINKPERSON * pLink){
 
 	PERSON * pPB; //used to save the node address which before the pPre
 	PERSON * pAB; //used to save the node address which before the pAfter
-	int m;
+	PERSON * m;
 
 	for (pPB=pLink->phead,pPre=pLink->phead->pnext; NULL != pPre->pnext; pPB=pPre,pPre=pPre->pnext){
 		for (pAB=pPre,pAfter=pPre->pnext; NULL != pAfter; pAB=pAfter,pAfter=pAfter->pnext){
 			if (pPre->id > pAfter->id){
 				link_exchange(pPB,pAB);
-			}
+				m = pPre;
+				pPre = pAfter;
+				pAfter = m;
+			};
 		}
 	}
 }
