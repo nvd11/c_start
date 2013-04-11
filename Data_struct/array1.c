@@ -131,7 +131,8 @@ int link_1(){
 }
 int array1_main(){
 	int i=0;
-	i=link_1();
+	//i=link_1();
+	i=array1_1();
 	printf("array1_main done\n");
 	return 0;
 }

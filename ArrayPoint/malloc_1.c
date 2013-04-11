@@ -50,7 +50,7 @@ int malloc_3(){
 	
 	len++;
 	//a = (int *)realloc(a, sizeof(int)* (len));
-	i = malloc_4(&a, len);
+	i = re_malloc(&a, len);
 	a[len-1]= 40;
 	i = p_array_int_1(a,len); //a function to print the array which defined by user	
 	printf("address is %p\n", a);
@@ -59,7 +59,11 @@ int malloc_3(){
 	return 0;
 }
 
-int malloc_4(int ** pa, int len){
+int re_malloc(int ** pa, int len){
+	int * pold;
 	*pa = (int *)realloc(*pa, sizeof(int)* (len));
+	if (pold != *pa){
+		free(pold);
+	}
 	return 0;
 }

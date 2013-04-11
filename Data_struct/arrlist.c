@@ -275,15 +275,20 @@ static void Arr_error(char * pstr){
 }
 
 static BOOL Arr_extend(ARRINT * pArr, int increment){
-	
-	pArr->paddr = (int *)realloc(pArr->paddr, sizeof(int) * (pArr->cur_len + increment));
+   int * pold = pArr->paddr;
+    pArr->paddr = (int *)realloc(pArr->paddr, sizeof(int) * (pArr->cur_len + increment));
 
-	if (NULL == pArr->paddr){
-		return FALSE;
-	}
-	
-	pArr->len += increment;
-	return TRUE;
+    if (NULL == pArr->paddr){
+        pArr->paddr = pold;
+        return FALSE;
+    }
+
+    if (pold != pArr->paddr){
+        free(pold);
+    }
+
+    pArr->len += increment;
+    return TRUE;
 }
 
 
