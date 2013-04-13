@@ -20,6 +20,7 @@
 
 	typedef struct Link_person LINKPERSON;
 
+
 	//init a new block()
 	PERSON * person_new(int id,char *pname);
 

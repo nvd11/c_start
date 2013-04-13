@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "arrlist.h"
 #include "linklist1.h"
+#include "stuck1.h"
 #include <stdlib.h>
 
 
@@ -13,7 +14,6 @@ int malloc_41(int ** pa, int len){
 
 
 int array1_1(){
-
 	struct Arrlist * parr1;
 
 	parr1 = Arr_init(10);
@@ -129,10 +129,21 @@ int link_1(){
 	return 0;
 
 }
+
+int stuck_1(){
+	PERSON_ST * pnode = person_st_new(1,"Jasonabc1234567890111111110");
+	person_st_print(pnode);
+
+	STPERSON * pst1 = st_create();
+
+	printf("stuck_1 done\n");
+	return 0;
+}
 int array1_main(){
 	int i=0;
 	//i=link_1();
-	i=array1_1();
+	//i=array1_1();
+	i=stuck_1();
 	printf("array1_main done\n");
 	return 0;
 }

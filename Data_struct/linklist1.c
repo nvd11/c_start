@@ -3,7 +3,7 @@
 #include <string.h>
 #include "linklist1.h"
 
-static void link_error(const char * pErr);
+static void link_error(const char * pstr);
 static void person_print(PERSON * pnode);
 static void link_exchange(PERSON * pPB, PERSON * pAB);
 
@@ -252,8 +252,12 @@ BOOL link_free(LINKPERSON * pLink){
 
 	PERSON * pnode = pLink->phead;
 	PERSON * pAfter =pnode->pnext;
+
+	//printf("free pnode which id is %d\n",pnode->id);
+	free(pnode); //free phead
 	while(NULL != pAfter){
 		pnode=pAfter;
+		//printf("free pnode which id is %d\n",pnode->id);
 		pAfter = pnode->pnext;
 		free(pnode);
 	}
