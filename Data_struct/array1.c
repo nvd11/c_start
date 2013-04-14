@@ -120,8 +120,6 @@ int link_1(){
 	printf("will be sort now!\n\n");
 	link_sort(plink1);
 	link_traverse(plink1);
-	//link_clear(plink1);
-	link_free(plink1);
 	//link_traverse(plink1);
 
 	//printf("id is %d, name is %s\n",p1->id, p1->name);
@@ -133,12 +131,34 @@ int link_1(){
 int stuck_1(){
 	PERSON_ST * pnode = person_st_new(1,"Jasonabc1234567890111111110");
 	person_st_print(pnode);
+	free(pnode);
 
 	STPERSON * pst1 = st_create();
+	st_push(pst1,person_st_new(1, "Jason"));
+	st_push(pst1,person_st_new(2, "Cindy"));
+	st_push(pst1,person_st_new(3, "Gateman"));
+	st_push(pst1,person_st_new(4, "Fiana"));
+	st_print(pst1);
 
+	printf("top twice\n\n");
+	st_pop(pst1, &pnode);
+	person_st_print(pnode);
+	free(pnode);
+
+	st_pop(pst1, &pnode);
+	person_st_print(pnode);
+	free(pnode);
+
+	printf("top done\n\n");
+
+	st_print(pst1);
+
+	st_clear(pst1);
+	st_free(pst1);
 	printf("stuck_1 done\n");
 	return 0;
 }
+
 int array1_main(){
 	int i=0;
 	//i=link_1();
