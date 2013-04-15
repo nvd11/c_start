@@ -2,6 +2,7 @@
 #include "arrlist.h"
 #include "linklist1.h"
 #include "stuck1.h"
+#include "linkqueue1.h"
 #include <stdlib.h>
 
 
@@ -159,11 +160,61 @@ int stuck_1(){
 	return 0;
 }
 
+int linkqueue1(){
+	PERSON_LQ * pnode = person_lq_new(1,"JasonPoon111212121212");
+	person_lq_print(pnode);
+	free(pnode);
+
+	LQPERSON * plq1 = lqperson_new();
+	lq_Enqueue(plq1, person_lq_new(1,"Jason"));
+	lq_Enqueue(plq1, person_lq_new(2,"Cindy"));
+	lq_Enqueue(plq1, person_lq_new(3,"Fiana"));
+	lq_Enqueue(plq1, person_lq_new(4,"Gateman"));
+
+	lq_print(plq1);
+
+	int i=0;
+	int j=plq1->len-1;
+	for (i=0; i < j; i++){
+		lq_Dequeue(plq1,&pnode);
+		printf("the out node is\n");
+		person_lq_print(pnode);
+		printf("\n");
+		free(pnode);
+	}
+
+	lq_print(plq1);
+	lq_Dequeue(plq1,&pnode);
+	printf("the out node is\n");
+	person_lq_print(pnode);
+	printf("\n");
+	free(pnode);
+
+	lq_print(plq1);
+	lq_Enqueue(plq1, person_lq_new(1,"Jason"));
+	lq_Enqueue(plq1, person_lq_new(2,"Cindy"));
+	lq_Enqueue(plq1, person_lq_new(3,"Fiana"));
+	lq_Enqueue(plq1, person_lq_new(4,"Gateman"));
+
+
+	lq_print(plq1);
+
+	printf("now clear the linkqueuei!\n");
+	lq_clear(plq1);
+	lq_print(plq1);
+
+	lq_free(plq1);
+
+	printf("linkq1 done\n");
+	return 0;
+}
+
 int array1_main(){
 	int i=0;
 	//i=link_1();
 	//i=array1_1();
-	i=stuck_1();
+	//i=stuck_1();
+	i = linkqueue1();
 	printf("array1_main done\n");
 	return 0;
 }

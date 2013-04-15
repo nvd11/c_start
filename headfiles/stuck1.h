@@ -39,7 +39,7 @@
 	//traverse the stuck to print all the elements
 	void st_print(STPERSON * pSt);
 
-	//put out and free all the elements from the elements;
+	//put out and free all the elements from the stuck;
 	BOOL st_clear(STPERSON *pSt);
 
 	//traverse the stuck to free all the elements, and free the stuck itself
