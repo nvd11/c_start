@@ -38,7 +38,7 @@ AQ_PERSON * aq_person_new(int arrlen){
 
 	pAq->pArr = (PERSON_AQ *)malloc(sizeof(PERSON_AQ) * arrlen);
 	if (NULL == pAq->pArr){
-		//base_error("fail to assign memory to a new array queue!!");
+		base_error("fail to assign memory to a new array queue!!");
 	}
 
 
