@@ -3,6 +3,7 @@
 #include "linklist1.h"
 #include "stuck1.h"
 #include "linkqueue1.h"
+#include "arrqueue1.h"
 #include <stdlib.h>
 
 
@@ -161,6 +162,7 @@ int stuck_1(){
 }
 
 int linkqueue1(){
+
 	PERSON_LQ * pnode = person_lq_new(1,"JasonPoon111212121212");
 	person_lq_print(pnode);
 	free(pnode);
@@ -209,12 +211,68 @@ int linkqueue1(){
 	return 0;
 }
 
+int arrqueue1(){
+	AQ_PERSON * paq1 = aq_person_new(6);
+	paq1->en_queue(paq1, 1, "Jason");
+	paq1->en_queue(paq1, 2, "Gateman");
+	paq1->en_queue(paq1, 3, "Youyi");
+	paq1->en_queue(paq1, 4, "Snow");
+	paq1->en_queue(paq1, 5, "Moon");
+	paq1->en_queue(paq1, 6, "Crystal");
+	paq1->en_queue(paq1, 7, "AI");
+	paq1->print(paq1);
+	paq1->print_arr_id_st(paq1);
+	printf("\n");
+
+	PERSON_AQ node;
+
+	paq1->de_queue(paq1, &node);
+	printf("the dequeue object is:\n");
+	person_aq_print(&node);
+	printf("\n");
+
+	paq1->en_queue_by_struct(paq1, &node);
+
+	paq1->de_queue(paq1, &node);
+	printf("the dequeue object is:\n");
+	person_aq_print(&node);
+	printf("\n");
+
+	paq1->en_queue_by_struct(paq1, &node);
+
+	paq1->de_queue(paq1, &node);
+	printf("the dequeue object is:\n");
+	person_aq_print(&node);
+	printf("\n");
+
+	paq1->en_queue_by_struct(paq1, &node);
+
+	paq1->de_queue(paq1, &node);
+	printf("the dequeue object is:\n");
+	person_aq_print(&node);
+	printf("\n");
+
+	paq1->en_queue_by_struct(paq1, &node);
+
+	paq1->print_arr_id_st(paq1);
+
+	paq1->en_queue(paq1, 8, "Cindy");
+	paq1->en_queue(paq1, 9, "Inzaghi");
+
+	paq1->print_arr_id_st(paq1);
+	paq1->print(paq1);
+	aq_person_free(paq1);
+	printf("len of array queue is %d\n",paq1->len(paq1));
+	printf("arrqueue1_main done\n");
+	return 0;
+}
 int array1_main(){
 	int i=0;
 	//i=link_1();
 	//i=array1_1();
 	//i=stuck_1();
-	i = linkqueue1();
+	//i = linkqueue1();
+	i = arrqueue1();
 	printf("array1_main done\n");
 	return 0;
 }
