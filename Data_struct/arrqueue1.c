@@ -25,8 +25,8 @@ void person_aq_print(PERSON_AQ * pnode);
 
 //initail and return an array queue with dynamic memory assiganed
 AQ_PERSON * aq_person_new(int arrlen){
-	if (arrlen <= 0){
-		printf("length of array must > 0!!\n");
+	if (arrlen <= 1){
+		printf("length of array must > 1!!\n");
 		return NULL;
 	}
 
