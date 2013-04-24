@@ -294,7 +294,7 @@ int array1_main(){
 	//i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
-	//i = arrqueue1();
+	i = arrqueue1();
 	i = arrstuck1();
 	printf("array1_main done\n");
 	return 0;

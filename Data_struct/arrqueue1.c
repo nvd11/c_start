@@ -46,15 +46,15 @@ AQ_PERSON * aq_person_new(int arrlen){
 	pAq->Rear = 0;
 	pAq->arrlen = arrlen;
 
-	pAq->len = &aq_len;
-	pAq->is_full = &aq_is_full;
-	pAq->is_empty = &aq_is_empty;
-	pAq->extend = &aq_extend;
-	pAq->en_queue = &aq_enqueue;
-	pAq->en_queue_by_struct = &aq_enqueue_bystruct;
-	pAq->de_queue = &aq_dequeue;
-	pAq->print = &aq_print;
-	pAq->print_arr_id_st = &aq_print_all_id_status;
+	pAq->len = aq_len;
+	pAq->is_full = aq_is_full;
+	pAq->is_empty = aq_is_empty;
+	pAq->extend = aq_extend;
+	pAq->en_queue = aq_enqueue;
+	pAq->en_queue_by_struct = aq_enqueue_bystruct;
+	pAq->de_queue = aq_dequeue;
+	pAq->print = aq_print;
+	pAq->print_arr_id_st = aq_print_all_id_status;
 
 	pAq->is_inited = TRUE;
 	return pAq;

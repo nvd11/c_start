@@ -40,16 +40,16 @@ INT_STUCK * ast_int_new(){
 	pIst->arrlen = AST_INIT_LEN;
 	pIst->buttom =0;
 	pIst->top = 0;
-	pIst->is_empty = &ast_int_is_empty;
-	pIst->is_full = &ast_int_is_full;
-	pIst->len = &ast_int_len;
-	pIst->ButtomVal = &ast_int_buttom_val;
-	pIst->TopVal = &ast_int_top_val;
-	pIst->push = &ast_int_push;
-	pIst->pop = &ast_int_pop;
-	pIst->print = &ast_int_print;
-	pIst->print_from_top = &ast_int_print_from_top;
-	pIst->clean = &ast_int_clean;
+	pIst->is_empty = ast_int_is_empty;
+	pIst->is_full = ast_int_is_full;
+	pIst->len = ast_int_len;
+	pIst->ButtomVal = ast_int_buttom_val;
+	pIst->TopVal = ast_int_top_val;
+	pIst->push = ast_int_push;
+	pIst->pop = ast_int_pop;
+	pIst->print = ast_int_print;
+	pIst->print_from_top = ast_int_print_from_top;
+	pIst->clean = ast_int_clean;
 	pIst->is_inited = TRUE;
 
 	return pIst;
