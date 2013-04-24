@@ -4,6 +4,7 @@
 #include "stuck1.h"
 #include "linkqueue1.h"
 #include "arrqueue1.h"
+#include "arrstuck1.h"
 #include <stdlib.h>
 
 
@@ -266,13 +267,35 @@ int arrqueue1(){
 	printf("arrqueue1_main done\n");
 	return 0;
 }
+
+int arrstuck1(){
+	INT_STUCK * pIst = ast_int_new();
+	int i;
+	for (i=0; i<9; i++){
+		pIst->push(pIst,i);
+	}
+
+	int out;
+	pIst->pop(pIst, &out);
+	printf("the pop element is %d\n", out);
+
+
+	pIst->push(pIst,9);
+	pIst->push(pIst,10);
+	pIst->push(pIst,11);
+	pIst->push(pIst,12);
+
+	pIst->print(pIst);
+}
+
 int array1_main(){
 	int i=0;
 	//i=link_1();
 	//i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
-	i = arrqueue1();
+	//i = arrqueue1();
+	i = arrstuck1();
 	printf("array1_main done\n");
 	return 0;
 }

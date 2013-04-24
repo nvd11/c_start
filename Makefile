@@ -1,5 +1,5 @@
 CC=gcc
-OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o arrlist.o linklist1.o stuck1.o linkqueue1.o arrqueue1.o basefuncs.o 
+OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o arrlist.o linklist1.o stuck1.o linkqueue1.o arrqueue1.o arrstuck1.o recursion.o hanoi.o basefuncs.o 
 HEADPATH=./headfiles/
 EXEC=main
 
@@ -59,6 +59,15 @@ linkqueue1.o: Data_struct/linkqueue1.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 	
 arrqueue1.o: Data_struct/arrqueue1.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
+	
+arrstuck1.o: Data_struct/arrstuck1.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
+	
+recursion.o: Data_struct/Recursion/recursion.c
+	${CC} -c -g $< -I ${HEADPATH} -o $@
+	
+hanoi.o: Data_struct/Recursion/hanoi.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 	
 basefuncs.o: Basefuncs/basefuncs.c
