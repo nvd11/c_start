@@ -128,9 +128,11 @@ static BOOL aq_extend(AQ_PERSON * pAq, int exlen){
 		return FALSE;
 	}
 
-	if (pAq->pArr != pold){
-		free(pold);
-	}
+//	realloc will free the old memory automatically,
+//	it's now allow to free it manual!!!
+//	if (pAq->pArr != pold){
+//		free(pold);
+//	}
 
 	if (pAq->Rear < pAq->Front){
 		int i;

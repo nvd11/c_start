@@ -107,9 +107,11 @@ static BOOL ast_int_extend(INT_STUCK * pIst, int exlen){
 		return FALSE;
 	}
 
-	if(pold != pIst->pArr){
-		free(pold);
-	}
+//	realloc will free the old memory automatically,
+//	it's now allow to free it manual!!'
+//	if(pold != pIst->pArr){
+//		free(pold);
+//	}
 
 	pIst->arrlen += exlen;
 

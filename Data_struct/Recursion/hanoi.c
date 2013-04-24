@@ -11,7 +11,6 @@
 #include "arrstuck1.h"
 
 typedef INT_STUCK HANOITOWER;
-//typedef ast_int_new Hanoi_new;
 static HANOITOWER * (* hanoi_new)() = ast_int_new;
 
 BOOL hanoi_push(HANOITOWER * pIst, int val);
@@ -28,14 +27,18 @@ int hanoi_main(void){
 
 int hanoi1(){
 	HANOITOWER * pTa = hanoi_new();
-//	HANOITOWER * pTa = Hanoi_new();
+	HANOITOWER * pTb = hanoi_new();
+	HANOITOWER * pTc = hanoi_new();
 
 	int i;
+
 	for (i=32; i >= 1; i--){
 		hanoi_push(pTa, i);
 	}
 
 	hanoi_print(pTa);
+	hanoi_print(pTb);
+	hanoi_print(pTc);
 
 	printf("hanoi_new done\n");
 	return 0;

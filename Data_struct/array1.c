@@ -18,8 +18,10 @@ int malloc_41(int ** pa, int len){
 
 int array1_1(){
 	struct Arrlist * parr1;
+	struct Arrlist * parr2;
 
 	parr1 = Arr_init(10);
+	parr2 = Arr_init(10);
 	
 	char empty =Arr_is_empty(parr1);
 
@@ -169,6 +171,7 @@ int linkqueue1(){
 	free(pnode);
 
 	LQPERSON * plq1 = lqperson_new();
+	//LQPERSON * plq2 = lqperson_new();
 	lq_Enqueue(plq1, person_lq_new(1,"Jason"));
 	lq_Enqueue(plq1, person_lq_new(2,"Cindy"));
 	lq_Enqueue(plq1, person_lq_new(3,"Fiana"));
@@ -214,6 +217,7 @@ int linkqueue1(){
 
 int arrqueue1(){
 	AQ_PERSON * paq1 = aq_person_new(6);
+	//AQ_PERSON * paq2 = aq_person_new(6);
 	paq1->en_queue(paq1, 1, "Jason");
 	paq1->en_queue(paq1, 2, "Gateman");
 	paq1->en_queue(paq1, 3, "Youyi");
@@ -291,11 +295,11 @@ int arrstuck1(){
 int array1_main(){
 	int i=0;
 	//i=link_1();
-	//i=array1_1();
+	i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
-	i = arrqueue1();
-	i = arrstuck1();
+	//i = arrqueue1();
+	//i = arrstuck1();
 	printf("array1_main done\n");
 	return 0;
 }

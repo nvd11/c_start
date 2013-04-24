@@ -281,11 +281,12 @@ static BOOL Arr_extend(ARRINT * pArr, int increment){
     if (NULL == pArr->paddr){
         pArr->paddr = pold;
         return FALSE;
-    }
+     }
 
-    if (pold != pArr->paddr){
-        free(pold);
-    }
+    // realloc will auto free the old memory, it's not allow to free it again!!!!
+//    if (pold != pArr->paddr){
+//        free(pold);
+//     }
 
     pArr->len += increment;
     return TRUE;
