@@ -9,6 +9,8 @@
 #include "hanoi.h"
 #include "bool_me.h"
 #include "arrstuck1.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef INT_STUCK HANOITOWER;
 static HANOITOWER * (* hanoi_new)() = ast_int_new;
@@ -18,7 +20,7 @@ BOOL hanoi_pop(HANOITOWER * pIst, int * pVal);
 BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to);
 void hanoi_print(HANOITOWER * pIst);
 int hanoi1();
-int hanoi_m(HANOITOWER * pA, HANOITOWER * pB, HANOITOWER *pC);
+int hanoi_m(HANOITOWER * , HANOITOWER * , HANOITOWER *, int);
 int hanoi_len(HANOITOWER * pIst);
 
 int hanoi_main(void){
@@ -35,12 +37,11 @@ int hanoi1(){
 
 	int i;
 
-	for (i=32; i >= 1; i--){
+	for (i=16; i >= 1; i--){
 		hanoi_push(pTa, i);
 	}
 
-	hanoi_move(pTa, pTc);
-
+	hanoi_m(pTa, pTb, pTc, pTa->len(pTa));
 
 	printf("tower A is below\n");
 	hanoi_print(pTa);
@@ -49,22 +50,37 @@ int hanoi1(){
 	printf("\ntower C is below\n");
 	hanoi_print(pTc);
 
+	ast_free(pTa);
+	ast_free(pTb);
+	ast_free(pTc);
+
+	//system("ls /home/gateman");
+	//exec("ls /home/gateman");
+
+	int childpid;
+	if (fork() == 0){
+		execlp("ls /home/gateman",NULL);
+	}else{
+		wait(&childpid);
+		exit(0);
+		printf("fork done\n");
+
+	}
+
+
 	printf("hanoi_new done\n");
 	return 0;
 }
 
-int hanoi_m(HANOITOWER * pA, HANOITOWER * pB, HANOITOWER *pC){
-	if (hanoi_len(pA) == 1){
-		hanoi_move(pA, pC);
+int hanoi_m(HANOITOWER * pfrom, HANOITOWER * pmid, HANOITOWER *pto, int count){
+	if (count == 1){
+		hanoi_move(pfrom, pto);
 		return 0;
 	}
 
-	if (hanoi_len(pA) == 2){
-		hanoi_move(pA, pC);
-		return 0;
-	}
-
-
+	hanoi_m(pfrom,pto,pmid,count-1);
+	hanoi_move(pfrom, pto);
+	hanoi_m(pmid,pfrom,pto,count-1);
 
 	return 0;
 }

@@ -90,7 +90,7 @@ int recur_main(void){
 //	recur_100(i, &s);
 //	printf("f is %d\n", fac_rec(10));
 	i = hanoi_main();
-	printf("sum of 1 ~ 100 is %d\n", recur_100(100));
+	//printf("sum of 1 ~ 100 is %d\n", recur_100(100));
 	printf("recur_main done!\n");
 	return 0;
 }
