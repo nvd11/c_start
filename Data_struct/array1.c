@@ -290,6 +290,7 @@ int arrstuck1(){
 	pIst->push(pIst,12);
 
 	pIst->print(pIst);
+	return 0;
 }
 
 int array1_main(){

@@ -6,6 +6,7 @@ int malloc_1();
 int malloc_2();
 int malloc_3();
 int malloc_4(int ** pa, int len);
+int re_malloc(int ** pa, int len);
 
 int malloc_main(){
 	int i;

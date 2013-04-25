@@ -22,7 +22,7 @@
 	PERSON_ST * person_st_new(int id, char * pname);
 
 	//printf the infomation of a node
-	void person_st_printf(PERSON_ST * pnode);
+	void person_st_print(PERSON_ST * pnode);
 
 	//create a stuck with dynamic linklist
 	STPERSON * st_create(void);

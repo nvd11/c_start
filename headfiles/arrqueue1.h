@@ -21,15 +21,15 @@
 		int arrlen;
 		BOOL is_inited;
 
-		int (* len)(); //function member of a structure
-		BOOL (* is_full)(); //judge whether array queue is full
-		BOOL (* is_empty)(); //judge whether array queue is empty
-		BOOL (* extend)(); //extend the max length of the array queue
-		BOOL (* en_queue)(); //enqueue by id and name
-		BOOL (* en_queue_by_struct)(); //enqueue by structure
-		BOOL (* de_queue)(); //dequeue
-		void (* print)(); //print info of all the elements in the array queue
-		void (* print_arr_id_st)(); //print all the id of elements of the array
+		int (* len)(struct aq_person *); //function member of a structure
+		BOOL (* is_full)(struct aq_person *); //judge whether array queue is full
+		BOOL (* is_empty)(struct aq_person *); //judge whether array queue is empty
+		BOOL (* extend)(struct aq_person * , int); //extend the max length of the array queue
+		BOOL (* en_queue)(struct aq_person *, int, char *); //enqueue by id and name
+		BOOL (* en_queue_by_struct)(struct aq_person  *, PERSON_AQ *); //enqueue by structure
+		BOOL (* de_queue)(struct aq_person *, PERSON_AQ *); //dequeue
+		void (* print)(struct aq_person *); //print info of all the elements in the array queue
+		void (* print_arr_id_st)(struct aq_person *); //print all the id of elements of the array
 	};
 
 	typedef struct aq_person AQ_PERSON;
