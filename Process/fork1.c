@@ -11,16 +11,29 @@
 #include "base_exec.h"
 
 int fork_1();
+int fork_2();
+int fork_3();
 
 
 int fork1_main(void){
 	fork_2();
-	char * pstr = "ls /home/gateman";
+//	char * pstr = "echo \"abc\" >> /home/gateman/abc.txt";
+	char * pstr = "echo $HOME";
 	base_exec(pstr);
 	printf("fork1 done!!!\n");
 	return 0;
 }
 
+int fork_3(){
+	printf("it's the main process step 1!!\n\n");
+
+	fork();
+
+	printf("step2 after fork() !!\n\n");
+
+	int i; scanf("%d",&i);   //prevent exiting
+	return 0;
+}
 
 int fork_1(){
 	int childpid;
@@ -28,18 +41,19 @@ int fork_1(){
 
 	if (fork() == 0){
 		//child process
-		for (i=1; i<=20; i++){
+		for (i=1; i<=8; i++){
 			printf("This is child process\n");
 		}
-		//exit(0);
+		exit(0);
 	}else{
 		//parent process
-		wait(&childpid);	
-		for(i=1; i<20; i++){
+		wait();
+		for(i=1; i<=8; i++){
 			printf("This is parent process\n");
 		}
 	}
 
+	printf("step2 after fork() !!\n\n");
 }
 
 int fork_2(){
@@ -114,8 +128,7 @@ int fork_2(){
 
 	if (fork() == 0){
 		//child process
-		char * execve_str[] = {"env",NULL};
-		char * env[] = {"PATH=/tmp", "USER=lei", "STATUS=testing", NULL};
+		char * env[] = {"PATH=/home/gateman", "USER=lei", "STATUS=testing", NULL};
 		if (execle("/usr/bin/env","env",NULL,env) <0){
 			perror("error on exec");
 			exit(0);

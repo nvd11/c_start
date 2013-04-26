@@ -31,7 +31,6 @@ int base_exec(char * pcmd){
 	fwrite("\n", 1,1, pf);
 
 	fclose(pf);
-	printf("base exec done\n");
 
 	if (fork() ==0 ){
 		//child processj
@@ -43,7 +42,6 @@ int base_exec(char * pcmd){
 	}else{
 		//current process
 		wait();
-		printf("done exec\n");
 		pf=fopen(LOGFILE,"a");
 
 		if (NULL == pf){
