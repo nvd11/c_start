@@ -15,6 +15,9 @@
 typedef INT_STUCK HANOITOWER;
 static HANOITOWER * (* hanoi_new)() = ast_int_new;
 
+#define HANIO_OP_FILE "~/tmp/HANIO_OP_FILE.log"
+static char hanio_move_str[50];
+
 BOOL hanoi_push(HANOITOWER * pIst, int val);
 BOOL hanoi_pop(HANOITOWER * pIst, int * pVal);
 BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to);
@@ -53,20 +56,6 @@ int hanoi1(){
 	ast_free(pTa);
 	ast_free(pTb);
 	ast_free(pTc);
-
-	//system("ls /home/gateman");
-	//exec("ls /home/gateman");
-
-	int childpid;
-	if (fork() == 0){
-		execlp("ls /home/gateman",NULL);
-	}else{
-		wait(&childpid);
-		exit(0);
-		printf("fork done\n");
-
-	}
-
 
 	printf("hanoi_new done\n");
 	return 0;
