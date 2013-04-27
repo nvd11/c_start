@@ -23,6 +23,7 @@
 		BOOL (* pop)(struct arrstuck1 *, int *); //pop the topelemnt to the stuck
 		void (* print)(struct arrstuck1 *); //print from buttom to top
 		void (* print_from_top)(struct arrstuck1 *); //print from top to buttom
+		char * (* print_from_top_s)(struct arrstuck1 *); //print from top to buttom to String
 		void (* clean)(struct arrstuck1 *); //remove all elements
 		BOOL is_inited; //judge whether the arraystuck is initialed
 	};

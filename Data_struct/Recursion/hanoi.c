@@ -11,12 +11,13 @@
 #include "arrstuck1.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <basefuncs.h>
 
 typedef INT_STUCK HANOITOWER;
 static HANOITOWER * (* hanoi_new)() = ast_int_new;
 
-#define HANIO_OP_FILE "~/tmp/HANIO_OP_FILE.log"
-static char hanio_move_str[50];
+#define HANOI_OP_FILE "/home/gateman/tmp/HANIO_OP_FILE.log"
+static char * hanoi_move_str;
 
 BOOL hanoi_push(HANOITOWER * pIst, int val);
 BOOL hanoi_pop(HANOITOWER * pIst, int * pVal);
@@ -37,15 +38,19 @@ int hanoi1(){
 	HANOITOWER * pTa = hanoi_new();
 	pTa->stname = "TowerA";
 	HANOITOWER * pTb = hanoi_new();
-	pTa->stname = "TowerB";
+	pTb->stname = "TowerB";
 	HANOITOWER * pTc = hanoi_new();
-	pTa->stname = "TowerC";
+	pTc->stname = "TowerC";
 
+	hanoi_move_str = (char *)malloc(sizeof(char) * 50);
 	int i;
 
-	for (i=16; i >= 1; i--){
+	for (i=4; i >= 1; i--){
 		hanoi_push(pTa, i);
 	}
+
+
+	base_log("start to move\n", HANOI_OP_FILE, "w");
 
 	hanoi_m(pTa, pTb, pTc, pTa->len(pTa));
 
@@ -56,12 +61,11 @@ int hanoi1(){
 	printf("\ntower C is below\n");
 	hanoi_print(pTc);
 
-	base_log("abc", "/home/gateman1/login1.log", "r");
-
 	ast_free(pTa);
 	ast_free(pTb);
 	ast_free(pTc);
 
+	free(hanoi_move_str);
 	printf("hanoi_new done\n");
 	return 0;
 }
@@ -103,6 +107,10 @@ BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
 	int val;
 	if (TRUE == hanoi_pop(pIst_from, &val)){
 		if (TRUE == hanoi_push(pIst_to, val)){
+			sprintf(hanoi_move_str, "move %d from %s to %s\n", val, pIst_from->stname, pIst_to->stname);
+			base_log(hanoi_move_str, HANOI_OP_FILE, "a");
+			//sprintf(hanoi_move_str, "%s:  %s", val, pIst_from->print_s(pIst_from));
+			//base_log(hanoi_move_str, HANOI_OP_FILE, "a");
 			return TRUE;
 		}
 	}

@@ -220,6 +220,29 @@ static void ast_int_print_from_top(INT_STUCK * pIst){
 	printf("\n\n");
 }
 
+static char * ast_int_print_from_top_to_string(INT_STUCK * pIst){
+	if (TRUE != pIst->is_inited){
+		base_error("the array stuck is not initialed yet!");
+	}
+
+	if (TRUE == pIst->is_empty(pIst)){
+		printf("the array stuck is empty!\n");
+		return "";
+	}
+
+	int i;
+	for (i= pIst->top-1; i >= pIst->buttom; i--){
+		printf("%d", pIst->pArr[i]);
+
+		if (i != pIst->buttom){
+			printf(", ");
+		}
+	}
+
+	printf("\n\n");
+}
+
+
 static void ast_int_clean(INT_STUCK * pIst){
 	if (TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
