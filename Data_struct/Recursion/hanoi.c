@@ -35,8 +35,11 @@ int hanoi_main(void){
 
 int hanoi1(){
 	HANOITOWER * pTa = hanoi_new();
+	pTa->stname = "TowerA";
 	HANOITOWER * pTb = hanoi_new();
+	pTa->stname = "TowerB";
 	HANOITOWER * pTc = hanoi_new();
+	pTa->stname = "TowerC";
 
 	int i;
 
@@ -52,6 +55,8 @@ int hanoi1(){
 	hanoi_print(pTb);
 	printf("\ntower C is below\n");
 	hanoi_print(pTc);
+
+	base_log("abc", "/home/gateman1/login1.log", "r");
 
 	ast_free(pTa);
 	ast_free(pTb);

@@ -13,6 +13,7 @@
 		int arrlen;  //the maxlen of th array
 		int top; //index of the top + 1
 		int buttom; //index of buttom , default is 0
+		const char * stname; //name of stuck, haha ,used to print the log to logfile
 		int (* len)(struct arrstuck1 *);   //get the length
 		int (* TopVal)(struct arrstuck1 *);  //get the top value
 		int (* ButtomVal)(struct arrstuck1 *);  //get the top value
