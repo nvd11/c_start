@@ -109,8 +109,6 @@ BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
 		if (TRUE == hanoi_push(pIst_to, val)){
 			sprintf(hanoi_move_str, "move %d from %s to %s\n", val, pIst_from->stname, pIst_to->stname);
 			base_log(hanoi_move_str, HANOI_OP_FILE, "a");
-			//sprintf(hanoi_move_str, "%s:  %s", val, pIst_from->print_s(pIst_from));
-			//base_log(hanoi_move_str, HANOI_OP_FILE, "a");
 			return TRUE;
 		}
 	}
