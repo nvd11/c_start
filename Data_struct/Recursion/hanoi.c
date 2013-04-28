@@ -25,7 +25,6 @@ BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to);
 void hanoi_print(HANOITOWER * pIst);
 int hanoi1();
 int hanoi_m(HANOITOWER * , HANOITOWER * , HANOITOWER *, int);
-int hanoi_len(HANOITOWER * pIst);
 
 int hanoi_main(void){
 	hanoi1();
@@ -49,11 +48,19 @@ int hanoi1(){
 		hanoi_push(pTa, i);
 	}
 
+	printf("before move\n");
+	printf("tower A is below\n");
+	hanoi_print(pTa);
+	printf("tower B is below\n");
+	hanoi_print(pTb);
+	printf("\ntower C is below\n");
+	hanoi_print(pTc);
 
 	base_log("start to move\n", HANOI_OP_FILE, "w");
 
 	hanoi_m(pTa, pTb, pTc, pTa->len(pTa));
 
+	printf("\nafter move\n");
 	printf("tower A is below\n");
 	hanoi_print(pTa);
 	printf("\ntower B is below\n");
@@ -120,10 +127,7 @@ BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
 }
 
 void hanoi_print(HANOITOWER * pIst){
-	pIst->print_from_top(pIst);
+	pIst->print(pIst);
 }
 
-int hanoi_len(HANOITOWER * pIst){
-	return pIst->len(pIst);
-}
 
