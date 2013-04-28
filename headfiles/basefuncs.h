@@ -10,6 +10,7 @@
 
 	void base_error(const char * );
 	BOOL base_log(const char *, const char *, const char *);
+	BOOL base_log_intarr(const char *, int * , int , const char * , const char *);
 
 
 #endif /* BASEFUNCS_H_ */

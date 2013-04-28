@@ -107,8 +107,11 @@ BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
 	int val;
 	if (TRUE == hanoi_pop(pIst_from, &val)){
 		if (TRUE == hanoi_push(pIst_to, val)){
-			sprintf(hanoi_move_str, "move %d from %s to %s\n", val, pIst_from->stname, pIst_to->stname);
+			//mark log to file
+			sprintf(hanoi_move_str, "\nmove %d from %s to %s\n", val, pIst_from->stname, pIst_to->stname);
 			base_log(hanoi_move_str, HANOI_OP_FILE, "a");
+			base_log_intarr(pIst_from->stname, pIst_from->pArr, pIst_from->len(pIst_from), HANOI_OP_FILE, "a");
+			base_log_intarr(pIst_to->stname, pIst_to->pArr, pIst_to->len(pIst_to), HANOI_OP_FILE, "a");
 			return TRUE;
 		}
 	}
