@@ -44,7 +44,7 @@ int hanoi1(){
 	hanoi_move_str = (char *)malloc(sizeof(char) * 50);
 	int i;
 
-	for (i=4; i >= 1; i--){
+	for (i=5; i >= 1; i--){
 		hanoi_push(pTa, i);
 	}
 
