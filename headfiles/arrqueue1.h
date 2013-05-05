@@ -19,15 +19,15 @@
 		int Front;
 		int Rear;
 		int arrlen;
-		BOOL is_inited;
+		C_BOOL is_inited;
 
 		int (* len)(struct aq_person *); //function member of a structure
-		BOOL (* is_full)(struct aq_person *); //judge whether array queue is full
-		BOOL (* is_empty)(struct aq_person *); //judge whether array queue is empty
-		BOOL (* extend)(struct aq_person * , int); //extend the max length of the array queue
-		BOOL (* en_queue)(struct aq_person *, int, char *); //enqueue by id and name
-		BOOL (* en_queue_by_struct)(struct aq_person  *, PERSON_AQ *); //enqueue by structure
-		BOOL (* de_queue)(struct aq_person *, PERSON_AQ *); //dequeue
+		C_BOOL (* is_full)(struct aq_person *); //judge whether array queue is full
+		C_BOOL (* is_empty)(struct aq_person *); //judge whether array queue is empty
+		C_BOOL (* extend)(struct aq_person * , int); //extend the max length of the array queue
+		C_BOOL (* en_queue)(struct aq_person *, int, char *); //enqueue by id and name
+		C_BOOL (* en_queue_by_struct)(struct aq_person  *, PERSON_AQ *); //enqueue by structure
+		C_BOOL (* de_queue)(struct aq_person *, PERSON_AQ *); //dequeue
 		void (* print)(struct aq_person *); //print info of all the elements in the array queue
 		void (* print_arr_id_st)(struct aq_person *); //print all the id of elements of the array
 	};
@@ -38,7 +38,7 @@
 	AQ_PERSON * aq_person_new(int arrlen);
 
 	//free the memory of array queue
-	BOOL aq_person_free(AQ_PERSON * pAq);
+	C_BOOL aq_person_free(AQ_PERSON * pAq);
 
 	//print an structure object
 	void person_aq_print(PERSON_AQ * pnode);

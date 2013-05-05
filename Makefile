@@ -1,12 +1,12 @@
 CC=gcc
-OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o arrlist.o linklist1.o stuck1.o linkqueue1.o arrqueue1.o arrstuck1.o recursion.o hanoi.o basefuncs.o fork1.o base_exec.o
+OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisearch.o bit32_64.o pointer1.o struct1.o memory_1.o arrlist.o linklist1.o stuck1.o linkqueue1.o arrqueue1.o arrstuck1.o recursion.o hanoi.o basefuncs.o fork1.o base_exec.o gtk_win1.o
 HEADPATH=./headfiles/
 EXEC=main
 
 all: cleanall ${EXEC}
 
 $(EXEC): ${OBJS}
-	${CC} ${OBJS} -o ${EXEC}
+	${CC} ${OBJS} -o ${EXEC} `pkg-config --cflags --libs gtk+-2.0`
 
 main.o: main.c  
 	${CC} -c -g $< -I ${HEADPATH} -o $@
@@ -78,6 +78,9 @@ fork1.o: Process/fork1.c
 	
 base_exec.o: Basefuncs/base_exec.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
+	
+gtk_win1.o: gtk_test/gtk_win1.c
+	${CC} -c -g $< `pkg-config --cflags --libs gtk+-2.0` -I ${HEADPATH} -o $@
 	
 cleanall:
 	rm -rf ${EXEC} *.o

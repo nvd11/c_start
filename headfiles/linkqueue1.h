@@ -20,7 +20,7 @@
 		PERSON_LQ * pHead;
 		PERSON_LQ * pRear;
 		int len;
-		BOOL is_inited;
+		C_BOOL is_inited;
 	};
 
 	typedef struct linkqueue1_person LQPERSON;
@@ -35,13 +35,13 @@
 	LQPERSON * lqperson_new(void);
 
 	//judge whether the link_queue is empty
-	BOOL lq_is_empty(LQPERSON * pLq);
+	C_BOOL lq_is_empty(LQPERSON * pLq);
 
 	//add an element into the queue
 	void lq_Enqueue(LQPERSON * pLq, PERSON_LQ * pnode);
 
 	//remove an element from the queue, and get the element
-	BOOL lq_Dequeue(LQPERSON * pLq, PERSON_LQ ** pOutput);
+	C_BOOL lq_Dequeue(LQPERSON * pLq, PERSON_LQ ** pOutput);
 
 	//traverse the queue to print all the elements
 	void lq_print(LQPERSON * pLq);

@@ -19,9 +19,9 @@ static HANOITOWER * (* hanoi_new)() = ast_int_new;
 #define HANOI_OP_FILE "/home/gateman/tmp/HANIO_OP_FILE.log"
 static char * hanoi_move_str;
 
-BOOL hanoi_push(HANOITOWER * pIst, int val);
-BOOL hanoi_pop(HANOITOWER * pIst, int * pVal);
-BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to);
+C_BOOL hanoi_push(HANOITOWER * pIst, int val);
+C_BOOL hanoi_pop(HANOITOWER * pIst, int * pVal);
+C_BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to);
 void hanoi_print(HANOITOWER * pIst);
 int hanoi1();
 int hanoi_m(HANOITOWER * , HANOITOWER * , HANOITOWER *, int);
@@ -90,40 +90,40 @@ int hanoi_m(HANOITOWER * pfrom, HANOITOWER * pmid, HANOITOWER *pto, int count){
 	return 0;
 }
 
-BOOL hanoi_push(HANOITOWER * pIst, int val){
-	if (TRUE != pIst->is_empty(pIst) && val >= pIst->TopVal(pIst)){
+C_BOOL hanoi_push(HANOITOWER * pIst, int val){
+	if (C_TRUE != pIst->is_empty(pIst) && val >= pIst->TopVal(pIst)){
 		printf("val is greater than top!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	pIst->push(pIst, val);
-	return TRUE;
+	return C_TRUE;
 }
 
-BOOL hanoi_pop(HANOITOWER * pIst, int * pVal){
-	if (TRUE == pIst->is_empty(pIst)){
+C_BOOL hanoi_pop(HANOITOWER * pIst, int * pVal){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		printf("fail to pop as the stuck is empty!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	pIst->pop(pIst, pVal);
-	return TRUE;
+	return C_TRUE;
 }
 
-BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
+C_BOOL hanoi_move(HANOITOWER * pIst_from, INT_STUCK * pIst_to){
 	int val;
-	if (TRUE == hanoi_pop(pIst_from, &val)){
-		if (TRUE == hanoi_push(pIst_to, val)){
+	if (C_TRUE == hanoi_pop(pIst_from, &val)){
+		if (C_TRUE == hanoi_push(pIst_to, val)){
 			//mark log to file
 			sprintf(hanoi_move_str, "\nmove %d from %s to %s\n", val, pIst_from->stname, pIst_to->stname);
 			base_log(hanoi_move_str, HANOI_OP_FILE, "a");
 			base_log_intarr(pIst_from->stname, pIst_from->pArr, pIst_from->len(pIst_from), HANOI_OP_FILE, "a");
 			base_log_intarr(pIst_to->stname, pIst_to->pArr, pIst_to->len(pIst_to), HANOI_OP_FILE, "a");
-			return TRUE;
+			return C_TRUE;
 		}
 	}
 
-	return FALSE;
+	return C_FALSE;
 }
 
 void hanoi_print(HANOITOWER * pIst){

@@ -10,43 +10,43 @@ void base_error(const char * pErr){
 	exit(-1);
 }
 
-BOOL base_log(const char * plog, const char * logfile, const char * WAind){
+C_BOOL base_log(const char * plog, const char * logfile, const char * WAind){
 	if (0 != strcmp("a",WAind) && 0 != strcmp("w",WAind)){
 		printf("WAind parameter must be a or w!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	FILE * pfile = fopen(logfile, WAind);
 	if (NULL == pfile){
 		printf("errno:%d\nstrerror: %s\n", errno, strerror(errno));
-		return FALSE;
+		return C_FALSE;
 	}
 
 	fprintf(pfile,"%s",plog);
 	if ( 0 != errno ){
 		printf("errno:%d\nstrerror: %s\n", errno, strerror(errno));
-		return FALSE;
+		return C_FALSE;
 	}
 
 	fclose(pfile);
-	return TRUE;
+	return C_TRUE;
 }
 
-BOOL base_log_intarr(const char * arrnm, int * pArr, int len, const char * logfile, const char * WAind){
+C_BOOL base_log_intarr(const char * arrnm, int * pArr, int len, const char * logfile, const char * WAind){
 	if (0 != strcmp("a",WAind) && 0 != strcmp("w",WAind)){
 		printf("WAind parameter must be a or w!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	if (len < 0){
 		printf("length of array must greater or equal to 0!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	FILE * pfile = fopen(logfile, WAind);
 	if (NULL == pfile){
 		printf("errno:%d\nstrerror: %s\n", errno, strerror(errno));
-		return FALSE;
+		return C_FALSE;
 	}
 
 
@@ -54,7 +54,7 @@ BOOL base_log_intarr(const char * arrnm, int * pArr, int len, const char * logfi
 	if (len==0){
 		fprintf(pfile, "blank array!\n");
 		fclose(pfile);
-		return TRUE;
+		return C_TRUE;
 	}
 
 	int i;
@@ -64,5 +64,5 @@ BOOL base_log_intarr(const char * arrnm, int * pArr, int len, const char * logfi
 
 	fprintf(pfile, "%d\n", pArr[len-1]);
 	fclose(pfile);
-	return TRUE;
+	return C_TRUE;
 }

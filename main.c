@@ -9,14 +9,26 @@
 #include "memory_1.h"
 #include "recursion.h"
 #include "fork1.h"
+#include "gtk_win1.h"
 
 int i;
 
-int main(){
+int main(int argc, char *argv[]){
+	/*
+	printf("argc is %d\n", argc);
+	for (i=0; i<= argc -1; i++){
+		printf("the %dth parameter is: %s\n",i,argv[i]);
+	}
+	*/
+	//i = gtk_win1(argc,argv);
+
+
 	//i = sort(); // sort.h
 	//i = array_main(); // array.h
 	//i = array1_main(); // array1.h
-	i = recur_main(); // recursion.h
+
+	i = recur_main(); // recursion.h  //hanoi
+
 	//i = fork1_main(); // fork1.h
 
 	//i = basefuncs_main();
@@ -39,6 +51,7 @@ int main(){
 	//i = struct3();
 	//i = pointer_main();
 		
+
 	//printf("Please type any key to exit...\n");
 	//scanf("%d",&i);
 	return i;

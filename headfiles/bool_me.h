@@ -1,16 +1,16 @@
-#ifndef __BOOL_ME_H_
-#define __BOOL_ME_H_
+#ifndef __C_BOOL_ME_H_
+#define __C_BOOL_ME_H_
 
-        #ifndef BOOL
-        #define BOOL char
+        #ifndef C_BOOL
+        #define C_BOOL char
         #endif
             
-        #ifndef TRUE
-        #define TRUE '1'
+        #ifndef C_TRUE
+        #define C_TRUE '1'
         #endif
             
-        #ifndef FALSE
-        #define FALSE '0'
+        #ifndef C_FALSE
+        #define C_FALSE '0'
         #endif
 
 #endif
