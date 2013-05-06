@@ -20,14 +20,14 @@ int main(int argc, char *argv[]){
 		printf("the %dth parameter is: %s\n",i,argv[i]);
 	}
 	*/
-	//i = gtk_win1(argc,argv);
+	i = gtk_win1(argc,argv);
 
 
 	//i = sort(); // sort.h
 	//i = array_main(); // array.h
 	//i = array1_main(); // array1.h
 
-	i = recur_main(); // recursion.h  //hanoi
+	//i = recur_main(); // recursion.h  //hanoi
 
 	//i = fork1_main(); // fork1.h
 
