@@ -13,14 +13,14 @@
 
 #define AST_INIT_LEN 10
 
-static BOOL ast_int_is_empty(INT_STUCK * pIst);
+static C_BOOL ast_int_is_empty(INT_STUCK * pIst);
 static int ast_int_len(INT_STUCK * pIst);
-static BOOL ast_int_is_full(INT_STUCK *);
-static BOOL ast_int_push(INT_STUCK * pIst, int Val);
-static BOOL ast_int_pop(INT_STUCK * pIst, int * pVal);
+static C_BOOL ast_int_is_full(INT_STUCK *);
+static C_BOOL ast_int_push(INT_STUCK * pIst, int Val);
+static C_BOOL ast_int_pop(INT_STUCK * pIst, int * pVal);
 static int ast_int_top_val(INT_STUCK * pIst);
 static int ast_int_buttom_val(INT_STUCK * pIst);
-static BOOL ast_int_extend(INT_STUCK * pIst, int exlen);
+static C_BOOL ast_int_extend(INT_STUCK * pIst, int exlen);
 static void ast_int_print(INT_STUCK * pIst);
 static void ast_int_print_from_top(INT_STUCK * pIst);
 static void ast_int_clean(INT_STUCK * pIst);
@@ -50,25 +50,25 @@ INT_STUCK * ast_int_new(){
 	pIst->print = ast_int_print;
 	pIst->print_from_top = ast_int_print_from_top;
 	pIst->clean = ast_int_clean;
-	pIst->is_inited = TRUE;
+	pIst->is_inited = C_TRUE;
 
 	return pIst;
 }
 
-static BOOL ast_int_is_empty(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+static C_BOOL ast_int_is_empty(INT_STUCK * pIst){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
 	if (pIst->top == pIst->buttom){
-		return TRUE;
+		return C_TRUE;
 	}
 
-	return FALSE;
+	return C_FALSE;
 }
 
 static int ast_int_len(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
@@ -76,27 +76,27 @@ static int ast_int_len(INT_STUCK * pIst){
 }
 
 
-static BOOL ast_int_is_full(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+static C_BOOL ast_int_is_full(INT_STUCK * pIst){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
 	if (pIst->top == pIst->arrlen -1){
-		return TRUE;
+		return C_TRUE;
 	}
 
-	return FALSE;
+	return C_FALSE;
 }
 
 //extend the max length of array
-static BOOL ast_int_extend(INT_STUCK * pIst, int exlen){
-	if (TRUE != pIst->is_inited){
+static C_BOOL ast_int_extend(INT_STUCK * pIst, int exlen){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
 	if (exlen < 0){
 		printf("the length of extend must >0!!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	int * pold = pIst->pArr;
@@ -104,7 +104,7 @@ static BOOL ast_int_extend(INT_STUCK * pIst, int exlen){
 	if (NULL == pIst->pArr){
 		printf("fail to assign memory to extend array!\n");
 		pIst->pArr = pold;
-		return FALSE;
+		return C_FALSE;
 	}
 
 //	realloc will free the old memory automatically,
@@ -115,15 +115,15 @@ static BOOL ast_int_extend(INT_STUCK * pIst, int exlen){
 
 	pIst->arrlen += exlen;
 
-	return TRUE;
+	return C_TRUE;
 }
 
 static int ast_int_top_val(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_empty(pIst)){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		base_error("the array stuck is empty!");
 	}
 
@@ -131,56 +131,56 @@ static int ast_int_top_val(INT_STUCK * pIst){
 }
 
 static int ast_int_buttom_val(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_empty(pIst)){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		base_error("the array stuck is empty!");
 	}
 
 	return pIst->pArr[pIst->buttom];
 }
 
-static BOOL ast_int_push(INT_STUCK * pIst, int Val){
-	if (TRUE != pIst->is_inited){
+static C_BOOL ast_int_push(INT_STUCK * pIst, int Val){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_full(pIst)){
-		if (TRUE != ast_int_extend(pIst, pIst->arrlen / 2)){
+	if (C_TRUE == pIst->is_full(pIst)){
+		if (C_TRUE != ast_int_extend(pIst, pIst->arrlen / 2)){
 			printf("fail to push as the array is full!\n");
-			return FALSE;
+			return C_FALSE;
 		}
 	}
 
 	pIst->pArr[pIst->top] = Val;
 	pIst->top++;
-	return TRUE;
+	return C_TRUE;
 }
 
 
-static BOOL ast_int_pop(INT_STUCK * pIst, int * pVal){
-	if (TRUE != pIst->is_inited){
+static C_BOOL ast_int_pop(INT_STUCK * pIst, int * pVal){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_empty(pIst)){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		printf("the array stuck is empty!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	*pVal = pIst->TopVal(pIst);
 	pIst->top--;
-	return FALSE;
+	return C_FALSE;
 }
 
 static void ast_int_print(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_empty(pIst)){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		printf("the array stuck is empty!\n");
 		return;
 	}
@@ -199,11 +199,11 @@ static void ast_int_print(INT_STUCK * pIst){
 
 
 static void ast_int_print_from_top(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
-	if (TRUE == pIst->is_empty(pIst)){
+	if (C_TRUE == pIst->is_empty(pIst)){
 		printf("the array stuck is empty!\n");
 		return;
 	}
@@ -222,7 +222,7 @@ static void ast_int_print_from_top(INT_STUCK * pIst){
 
 
 static void ast_int_clean(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+	if (C_TRUE != pIst->is_inited){
 		base_error("the array stuck is not initialed yet!");
 	}
 
@@ -231,13 +231,13 @@ static void ast_int_clean(INT_STUCK * pIst){
 }
 
 
-BOOL ast_free(INT_STUCK * pIst){
-	if (TRUE != pIst->is_inited){
+C_BOOL ast_free(INT_STUCK * pIst){
+	if (C_TRUE != pIst->is_inited){
 		printf("the array stuck is not initialed yet!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	free(pIst->pArr);
 	free(pIst);
-	return TRUE;
+	return C_TRUE;
 }

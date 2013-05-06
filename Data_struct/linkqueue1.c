@@ -42,28 +42,28 @@ LQPERSON * lqperson_new(void){
 	pLq->pHead = person_lq_new(-1,"Head");
 	pLq->pRear = pLq->pHead; //empty queue;
 	pLq->len=0;
-	pLq->is_inited = TRUE;
+	pLq->is_inited = C_TRUE;
 	return pLq;
 }
 
 
 //judge whether the link_queue is empty
-BOOL lq_is_empty(LQPERSON * pLq){
-	if (TRUE != pLq->is_inited){
+C_BOOL lq_is_empty(LQPERSON * pLq){
+	if (C_TRUE != pLq->is_inited){
 		base_error("the linkqueue is not initailed yet!");
 	}
 
 	if (pLq->pRear == pLq->pHead){
-		return TRUE;
+		return C_TRUE;
 	}
 
-	return FALSE;
+	return C_FALSE;
 }
 
 
 //add an element into the queue
 void lq_Enqueue(LQPERSON * pLq, PERSON_LQ * pnode){
-	if (TRUE != pLq->is_inited){
+	if (C_TRUE != pLq->is_inited){
 		base_error("the linkqueue is not initailed yet!");
 	}
 
@@ -77,11 +77,11 @@ void lq_Enqueue(LQPERSON * pLq, PERSON_LQ * pnode){
 
 //traverse the queue to print all the elements
 void lq_print(LQPERSON * pLq){
-	if (TRUE != pLq->is_inited){
+	if (C_TRUE != pLq->is_inited){
 		base_error("the linkqueue is not initailed yet!");
 	}
 
-	if (TRUE == lq_is_empty(pLq)){
+	if (C_TRUE == lq_is_empty(pLq)){
 		printf("the linkqueue is empty!\n");
 	}
 
@@ -94,14 +94,14 @@ void lq_print(LQPERSON * pLq){
 
 
 //remove an element from the queue, and get the element
-BOOL lq_Dequeue(LQPERSON * pLq, PERSON_LQ ** pOutput){
-	if (TRUE != pLq->is_inited){
+C_BOOL lq_Dequeue(LQPERSON * pLq, PERSON_LQ ** pOutput){
+	if (C_TRUE != pLq->is_inited){
 		base_error("the linkqueue is not initailed yet!");
 	}
 
-	if (TRUE == lq_is_empty(pLq)){
+	if (C_TRUE == lq_is_empty(pLq)){
 		printf("the linkqueue is empty!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	*pOutput = pLq->pHead->pNext;
@@ -113,12 +113,12 @@ BOOL lq_Dequeue(LQPERSON * pLq, PERSON_LQ ** pOutput){
 	}
 
 	pLq->len--;
-	return TRUE;
+	return C_TRUE;
 }
 
 //put out and free all the elements from the queue
 void lq_clear(LQPERSON * pLq){
-	if (TRUE != pLq->is_inited){
+	if (C_TRUE != pLq->is_inited){
 		base_error("the linkqueue is not initailed yet!");
 	}
 

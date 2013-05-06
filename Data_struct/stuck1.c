@@ -42,46 +42,46 @@ STPERSON * st_create(void){
 	pSt->phead->pnext = pSt->pbuttom;
 	pSt->pbuttom->pnext=NULL;
 	pSt->len=0;
-	pSt->is_inited = TRUE;
+	pSt->is_inited = C_TRUE;
 	return pSt;
 }
 
 
 //judge whether the stuck is empty (phead->pnext == pbutton)
-BOOL st_is_empty(STPERSON * pSt){
-	if (TRUE != pSt->is_inited){
+C_BOOL st_is_empty(STPERSON * pSt){
+	if (C_TRUE != pSt->is_inited){
 		st_error("the stuck is not initialed yet");
 	}
 
 	if (pSt->phead->pnext == pSt->pbuttom){
-		return TRUE;
+		return C_TRUE;
 	}
 
-	return FALSE;
+	return C_FALSE;
 }
 
 
 //push a new element into the stuck
-BOOL st_push(STPERSON * pSt, PERSON_ST * pnode){
-	if (TRUE != pSt->is_inited){
+C_BOOL st_push(STPERSON * pSt, PERSON_ST * pnode){
+	if (C_TRUE != pSt->is_inited){
 		printf("the stuck is not initialed yet\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	pnode->pnext = pSt->phead->pnext;
 	pSt->phead->pnext = pnode;
 	pSt->len++;
-	return TRUE;
+	return C_TRUE;
 }
 
 //traverse the stuck to print all the elements
 void st_print(STPERSON * pSt){
-	if (TRUE != pSt->is_inited){
+	if (C_TRUE != pSt->is_inited){
 		printf("the stuck is not initialed yet, fail to print it\n");
 		return;
 	}
 
-	if (TRUE == st_is_empty(pSt)){
+	if (C_TRUE == st_is_empty(pSt)){
 		printf("the stuck is empty!\n");
 		return;
 	}
@@ -95,26 +95,26 @@ void st_print(STPERSON * pSt){
 
 
 //pop a top element out from the stuck
-BOOL st_pop(STPERSON * pSt, PERSON_ST ** pOutput){
-	if (TRUE != pSt->is_inited){
+C_BOOL st_pop(STPERSON * pSt, PERSON_ST ** pOutput){
+	if (C_TRUE != pSt->is_inited){
 		printf("the stuck is not initialed yet\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
-	if (TRUE == st_is_empty(pSt)){
+	if (C_TRUE == st_is_empty(pSt)){
 		printf("the stuck is empty!\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	*pOutput = pSt->phead->pnext; //ptop
 	pSt->phead->pnext = (*pOutput)->pnext;
 
 	pSt->len--;
-	return TRUE;
+	return C_TRUE;
 }
 
 //traverse the stuck to free all the elements
-BOOL st_free(STPERSON * pSt){
+C_BOOL st_free(STPERSON * pSt){
 	st_clear(pSt);
 
 	free(pSt->phead);
@@ -122,13 +122,13 @@ BOOL st_free(STPERSON * pSt){
 
 	free(pSt);
 	pSt=NULL;
-	return TRUE;
+	return C_TRUE;
 }
 
-BOOL st_clear(STPERSON * pSt){
-	if (TRUE != pSt->is_inited){
+C_BOOL st_clear(STPERSON * pSt){
+	if (C_TRUE != pSt->is_inited){
 		printf("the stuck is not initialed yet\n");
-		return FALSE;
+		return C_FALSE;
 	}
 
 	PERSON_ST * pnode = pSt->phead;
@@ -144,7 +144,7 @@ BOOL st_clear(STPERSON * pSt){
 	//free(pSt); do not free the stuck
 	pSt->phead->pnext = pSt->pbuttom;
 	pSt->len=0;
-	return TRUE;
+	return C_TRUE;
 }
 
 static void st_error(const char * pErr){
