@@ -6,7 +6,7 @@ EXEC=main
 all: cleanall ${EXEC}
 
 $(EXEC): ${OBJS}
-	${CC} ${OBJS} -o ${EXEC}
+	${CC} ${OBJS} -o ${EXEC} -lm
 
 main.o: main.c  
 	${CC} -c -g $< -I ${HEADPATH} -o $@
@@ -26,7 +26,7 @@ array.o: ArrayPoint/array.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@
 
 array1.o: Data_struct/array1.c
-	${CC} -c -g $< -I ${HEADPATH} -o $@
+	${CC} -c -g $< -I ${HEADPATH} -o $@ 
 
 char_array.o: char/char_array.c
 	${CC} -c -g $< -I ${HEADPATH} -o $@

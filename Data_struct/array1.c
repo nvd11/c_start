@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "arrlist.h"
 #include "linklist1.h"
 #include "stuck1.h"
@@ -296,11 +297,12 @@ int arrstuck1(){
 
 int arrbtree_1(){
 
-	int x;
-	int y = 4;
-	x = bmath_log2(y);
-	printf("%x\n",y);
 
+
+	float x = 123.45;
+	float y = log2(x);
+
+	printf("x is %f\n", x);
 	printf("arrbtree_1 done\n");
 	return 0;
 }
