@@ -15,8 +15,8 @@ int i;
 int main(){
 	//i = sort(); // sort.h
 	//i = array_main(); // array.h
-	//i = array1_main(); // array1.h
-	i = recur_main(); // recursion.h
+	i = array1_main(); // array1.h
+	//i = recur_main(); // recursion.h
 	//i = fork1_main(); // fork1.h
 
 	//i = basefuncs_main();

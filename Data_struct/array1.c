@@ -6,6 +6,7 @@
 #include "arrqueue1.h"
 #include "arrstuck1.h"
 #include <stdlib.h>
+#include <base_math.h>
 
 
 
@@ -293,10 +294,21 @@ int arrstuck1(){
 	return 0;
 }
 
+int arrbtree_1(){
+
+	int x;
+	int y = 4;
+	x = bmath_log2(y);
+	printf("%x\n",y);
+
+	printf("arrbtree_1 done\n");
+	return 0;
+}
+
 int array1_main(){
 	int i=0;
-	//i=link_1();
-	i=array1_1();
+	i=arrbtree_1();
+	//i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
 	//i = arrqueue1();
