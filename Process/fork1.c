@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "base_exec.h"
+#include <sys/wait.h>
 
 int fork_1();
 int fork_2();
@@ -38,6 +39,7 @@ int fork_3(){
 int fork_1(){
 	int childpid;
 	int i;
+	
 
 	if (fork() == 0){
 		//child process
@@ -47,13 +49,14 @@ int fork_1(){
 		exit(0);
 	}else{
 		//parent process
-		wait();
+		wait(&childpid);
 		for(i=1; i<=8; i++){
 			printf("This is parent process\n");
 		}
 	}
 
 	printf("step2 after fork() !!\n\n");
+	return 0;
 }
 
 int fork_2(){
@@ -138,5 +141,5 @@ int fork_2(){
 		wait(&childpid);
 		printf("execle done\n\n");
 	}
-
+	return 0;
 }

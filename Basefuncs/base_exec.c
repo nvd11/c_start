@@ -11,12 +11,14 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/wait.h>
 
 #define LOGFILE "/home/gateman/logs/c_exec.log"
 
 int base_exec(char * pcmd){
 	FILE * pf;
 	pid_t pid = getpid();
+	int childpid;
 	char pfilename[20];
 	sprintf(pfilename, "/tmp/base_exec%d.sh",pid);
 
@@ -41,7 +43,7 @@ int base_exec(char * pcmd){
 		}
 	}else{
 		//current process
-		wait();
+		wait(&childpid);
 		pf=fopen(LOGFILE,"a");
 
 		if (NULL == pf){
