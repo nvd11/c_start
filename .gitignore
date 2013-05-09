@@ -23,5 +23,5 @@ main
 *dia~
 .cproject
 .settings
-.swp
+*swp
 tmp

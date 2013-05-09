@@ -19,17 +19,18 @@ static int arrbtree1_total_count(ARR_BTREE_P *);
 static void  arrbtree1_clear(ARR_BTREE_P *);
 static C_BOOL arrbtree1_is_empty(ARR_BTREE_P *);
 static int arrbtree1_getdepth(ARR_BTREE_P *);
-static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P *, int, char *);
+static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P *, PERSON_BT_ARR *);
 static PERSON_BT_ARR *  arrbtree1_get_rootnode(ARR_BTREE_P *);
 static PERSON_BT_ARR *  arrbtree1_get_parent(ARR_BTREE_P *, PERSON_BT_ARR *);
 static PERSON_BT_ARR *  arrbtree1_get_leftchild(ARR_BTREE_P *, PERSON_BT_ARR *);
 static PERSON_BT_ARR *  arrbtree1_get_rightchild(ARR_BTREE_P *, PERSON_BT_ARR *);
 static PERSON_BT_ARR * arrbtree1_get_leftbrother(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
 static PERSON_BT_ARR * arrbtree1_get_rightbrother(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
+static C_BOOL arrbtree1_insert_child(ARR_BTREE_P *, PERSON_BT_ARR *,char , PERSON_BT_ARR *);
 
 static PERSON_BT_ARR * arrbtree1_getnode(ARR_BTREE_P * , int);
+static C_BOOL arrbtree1_is_leaf(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
 static void arrbtree1_arr_print(ARR_BTREE_P * );
-static int arrbtree1_getindex_by_node(ARR_BTREE_P *, PERSON_BT_ARR *);
 
 
 /*
@@ -37,6 +38,11 @@ static int arrbtree1_getindex_by_node(ARR_BTREE_P *, PERSON_BT_ARR *);
 */
 static C_BOOL arrbtree1_extend(ARR_BTREE_P *, int);
 static void arrbtree1_recur_rm_nodes(ARR_BTREE_P *, PERSON_BT_ARR *);
+
+
+/*************************************************
+* below are the difinition of non member functions
+***************************************************/
 
 /*
  * initial a binary tree container
@@ -52,20 +58,20 @@ ARR_BTREE_P * arrbtree1_new(int init_count){
 		base_error("fail to assign memory to a binary tree!!");
 	}
 
-	PERSON_BT_ARR * pArr = (PERSON_BT_ARR *)malloc(sizeof(PERSON_BT_ARR) * (init_count+1));
+	PERSON_BT_ARR ** pArr = (PERSON_BT_ARR **)malloc(sizeof(PERSON_BT_ARR *) * (init_count+1));
 	if (NULL == pArr){
 		base_error("fail to assign memory to an array for a binary tree!!");
 	}
 
-	/* set all the element invalid */
+	/* set all the elements NULL */
 	int i;
 	for (i=0; i <= init_count; i++){
-		(pArr + i)->is_valid = C_FALSE;
+		pArr[i] = NULL;
 	}
 
+	pTree->pArr = pArr;
 	pTree->count = 0;
 	pTree->max_arrlen = init_count + 1;
-
 	pTree->total_count = arrbtree1_total_count;
 	pTree->clear = arrbtree1_clear;
 	pTree->is_empty = arrbtree1_is_empty;
@@ -79,16 +85,29 @@ ARR_BTREE_P * arrbtree1_new(int init_count){
 	pTree->get_rightbrother = arrbtree1_get_rightbrother;
 
 	pTree->getnode = arrbtree1_getnode;
+	pTree->is_leaf = arrbtree1_is_leaf;
+	//pTree->is_contained = arrbtree1_is_contained;
 	pTree->arr_print = arrbtree1_arr_print;
 
 	pTree->is_initialed = C_TRUE;
 	return pTree;
 };
 
+/*
+* initail a node with dynamic memory assigned
+*/
+PERSON_BT_ARR * personbt1_new(int id, char * pname){
+	PERSON_BT_ARR * pNode = (PERSON_BT_ARR *)malloc(sizeof(PERSON_BT_ARR));
+	if (NULL == pNode){
+		base_error("fail to assign memory to a node!!");
+	}
 
-/*************************************************
-* below are the difinition of non member functions
-***************************************************/
+	pNode->id = id;
+	strncpy(pNode->name, pname+0, ARRBTREE1_NM_LEN);
+
+	return pNode;
+}
+
 
 
 /* get the parent index by index*/
@@ -133,8 +152,8 @@ static C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 		return C_FALSE;
 	}
 
-	PERSON_BT_ARR * pold = pTree->pArr;
-	pTree->pArr = (PERSON_BT_ARR *)realloc(pTree->pArr, sizeof(PERSON_BT_ARR) * len);
+	PERSON_BT_ARR ** pold = pTree->pArr;
+	pTree->pArr = (PERSON_BT_ARR **)realloc(pTree->pArr, sizeof(PERSON_BT_ARR *) * len);
 	if (NULL == pTree->pArr){
 		printf("fail to assign memory to extend the array!\n");
 		pTree->pArr = pold;
@@ -143,7 +162,7 @@ static C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 
 	int i;
 	for (i=pTree->max_arrlen + 1; i <= len; i++){
-		pTree->pArr[i].is_valid = C_FALSE;
+		pTree->pArr[i]=NULL;
 	}
 
 	pTree->max_arrlen = len;
@@ -156,13 +175,9 @@ int arrbtree1_get_node_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
 		base_error("This object is not initialed yet!");
 	}
 
-	if (C_TRUE != pNode->is_valid){
-		printf("the node is invalid!!\n");
-		return -1;
-	}
 
-	PERSON_BT_ARR pRoot = pTree->pArr[1];
-	int index = pNode - &pRoot + 1;
+	PERSON_BT_ARR * pRoot = pTree->pArr[1];
+	int index = &pNode - &pRoot + 1;
 	if ( 1 > index || pTree->max_arrlen < index){
 		return -1;
 	}
@@ -174,6 +189,10 @@ void arrbtree1_free(ARR_BTREE_P * pTree){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
 	}
+
+
+	/* free and remove all nodes */
+	pTree->clear(pTree);
 
 	free(pTree->pArr);
 	free(pTree);
@@ -200,11 +219,14 @@ static void arrbtree1_recur_rm_nodes(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode)
 	}
 
 	/* step3, remove the root node */
-	pNode->is_valid = C_FALSE;
+	free(pNode);
+	pNode = NULL;
 	pTree->count--;
 
 	return;
 }
+
+
 
 /********************************************
 * below are the difinition of member functions
@@ -220,7 +242,7 @@ static int arrbtree1_total_count(ARR_BTREE_P * pTree){
 	return pTree->max_arrlen -1;
 }
 
-/* clear all the nodes from the tree */
+/* clear and free all the nodes from the tree */
 static void  arrbtree1_clear(ARR_BTREE_P * pTree){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
@@ -230,7 +252,7 @@ static void  arrbtree1_clear(ARR_BTREE_P * pTree){
 		return;
 	}
 
-	arrbtree1_recur_rm_nodes(pTree, pTree->get_root(pTree));
+	arrbtree1_recur_rm_nodes(pTree, pTree->pArr[1]);
 	return;
 }
 
@@ -246,35 +268,37 @@ static C_BOOL arrbtree1_is_empty(ARR_BTREE_P * pTree){
 	return C_TRUE;
 }
 
-/* number of floors of the binary tree */
+/* number of floors(valid nodes) of the binary tree */
 static int arrbtree1_getdepth(ARR_BTREE_P * pTree){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
 	}
 
+	/* get the max index of valid nodes */
+	int i = pTree->max_arrlen;
+	while(NULL == pTree->pArr[i]){
+		i--;
+	}
 	/*
 	 * log2 is logarithm function with base 2.
 	 * floor return the largest integral which is not greater than parameter  ex. floor(1.5) = 1
 	 * ceil return the smallest integral which is not less then parameter
 	 */
-	return floor(log2(pTree->max_arrlen)) + 1;
+	return floor(log2(i)) + 1;
 }
 
-/* set root_node */
-static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P * pTree, int id, char * pname){
+/* add root_node */
+static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
 	}
 
-	PERSON_BT_ARR * pNode = &(pTree->pArr[1]);
-	if (C_TRUE == pNode->is_valid){
+	if (NULL != pTree->pArr[1]){
 		printf("the root node is existed already!\n");
 		return C_FALSE;
 	}
 
-	pNode->id = id;
-	strncpy(pNode->name, pname+0, ARRBTREE1_NM_LEN); //define as 16
-	pNode->is_valid = C_TRUE;
+	pTree->pArr[1] = pNode;
 	pTree->count++;
 		
 	return C_TRUE;
@@ -286,7 +310,7 @@ static PERSON_BT_ARR *  arrbtree1_get_rootnode(ARR_BTREE_P * pTree){
 		base_error("This object is not initialed yet!");
 	}
 
-	return pTree->getnode(pTree,1);
+	return pTree->pArr[1];
 } 
 
 /* get the parent node of a node */
@@ -296,8 +320,6 @@ static PERSON_BT_ARR *  arrbtree1_get_parent(ARR_BTREE_P * pTree, PERSON_BT_ARR 
 	}
 
 	int index = arrbtree1_get_node_idx(pTree, pNode);
-	PERSON_BT_ARR * pParent;
-
 	if (0 > index){
 		printf("the node is not existed in the binary tree\n!");
 		return NULL;
@@ -305,7 +327,7 @@ static PERSON_BT_ARR *  arrbtree1_get_parent(ARR_BTREE_P * pTree, PERSON_BT_ARR 
 
 	/* not the rootnode of the binary tree */
 	if (1 < index){
-		return pTree->getnode(pTree, (int)(index/2));
+		return pTree->pArr[(int)(index / 2)];
 	}
 
 	return NULL;
@@ -324,7 +346,7 @@ static PERSON_BT_ARR *  arrbtree1_get_leftchild(ARR_BTREE_P * pTree, PERSON_BT_A
 		return NULL;
 	}
 
-	return  pTree->getnode(pTree, index * 2);
+	return pTree->pArr[index * 2];
 } 
 
 /* get the right child node of node, if there's no right child then return NULL */
@@ -340,7 +362,7 @@ static PERSON_BT_ARR *  arrbtree1_get_rightchild(ARR_BTREE_P * pTree, PERSON_BT_
 		return NULL;
 	}
 
-	return pTree->getnode(pTree, index * 2 + 1);
+	return pTree->pArr[index * 2 + 1];
 } 
 
 /* get the left brother(close to) node of node, if there's no left brother then return NULL */
@@ -358,7 +380,7 @@ static PERSON_BT_ARR * arrbtree1_get_leftbrother(ARR_BTREE_P * pTree, PERSON_BT_
 
 	/* not the rootnode of the binary tree and index is and odd number */
 	if ((1 < index) && (1 == index % 2)){
-		return pTree->getnode(pTree, index -1);
+		return pTree->pArr[index - 1];
 	}
 
 	return NULL;
@@ -379,14 +401,14 @@ static PERSON_BT_ARR * arrbtree1_get_rightbrother(ARR_BTREE_P * pTree, PERSON_BT
 
 	/* not the rootnode of the binary tree and index is and even number */
 	if ((1 < index) && (0 == index % 2)){
-		return pTree->getnode(pTree, index -1);
+		return pTree->pArr[index + 1];
 	}
 
 	return NULL;
 }
 
 /* Insert childtree under a node with parameter left or right */
-static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, char side, int id, char * pname){
+static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pParentNode, char side, PERSON_BT_ARR * pNode){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
 	}
@@ -396,9 +418,8 @@ static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode,
 		return C_FALSE;
 	}
 
-	int index = arrbtree1_get_node_idx(pTree, pNode);
+	int index = arrbtree1_get_node_idx(pTree, pParentNode);
 	int childindex;
-	PERSON_BT_ARR * pchild;
 
 	if (0 > index){
 		printf("the node is not existed in the binary tree\n!");
@@ -422,21 +443,18 @@ static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode,
 		}
 	}
 
-	pchild = &(pTree->pArr[childindex]);
-	if (C_FALSE != pchild->is_valid){
+	if (NULL != pTree->pArr[childindex]){
 		printf("the node have %c child already!\n", side);
 		return C_FALSE;
 	}
 
-	pchild->id = id;
-	strncpy(pchild->name, pname+0, ARRBTREE1_NM_LEN);
-	pchild->is_valid = C_TRUE;
+	pTree->pArr[childindex] = pNode;
 
 	pTree->count++;
 	return C_TRUE;
 }
 
-/* delete childtree under a node with parameter left or right , and with an output parameter to get the deleted node*/
+/* delete and free a node with its childtree , and with an output parameter to get the info deleted node*/
 static C_BOOL arrbtree1_delete_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, PERSON_BT_ARR * poutput){
 	if (C_TRUE != pTree->is_initialed){
 		base_error("This object is not initialed yet!");
@@ -448,13 +466,44 @@ static C_BOOL arrbtree1_delete_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, 
 		printf("the node is not existed in the binary tree\n!");
 		return C_FALSE;
 	}
+	
+	arrbtree1_recur_rm_nodes(pTree, pNode);
 
 	return C_TRUE;
 }	
 
+/* remove an node out from a tree, but don't free it */
+static C_BOOL arrbtree1_remove_node(struct arr_btree_person * pTree, PERSON_BT_ARR * pNode){
+	if (C_TRUE != pTree->is_initialed){
+		base_error("This object is not initialed yet!");
+	}
+
+	return C_TRUE;
+}
+
 /* move a childtree under another node */
 static C_BOOL arrbtree1_move_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, PERSON_BT_ARR * pParent){
+	if (C_TRUE != pTree->is_initialed){
+		base_error("This object is not initialed yet!");
+	}
+
+	int index = arrbtree1_get_node_idx(pTree, pNode);
+
+	if (0 > index){
+		printf("the node will be move is not existed in the binary tree\n!");
+		return C_FALSE;
+	}
+
+	int index_p = arrbtree1_get_node_idx(pTree,pParent);
+	if (0 > index){
+		printf("the node will be move to is not existed in the binary tree\n!");
+		return C_FALSE;
+	}
+
+
 	return C_TRUE;
+
+
 }
 
 /* get the specified node by btree number, if fail, return NULL */
@@ -468,11 +517,31 @@ static PERSON_BT_ARR * arrbtree1_getnode(ARR_BTREE_P * pTree, int index){
 		return NULL;
 	}
 
-	if (C_TRUE == pTree->pArr[index].is_valid){
-		return &(pTree->pArr[index]);
+	return pTree->pArr[index];
+}
+
+/* judge whether a node is a leaf node */
+static C_BOOL arrbtree1_is_leaf(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
+	if (C_TRUE != pTree->is_initialed){
+		base_error("This object is not initialed yet!");
 	}
 
-	return NULL;
+	int index = arrbtree1_get_node_idx(pTree, pNode);
+	if (0 > index){
+		return C_FALSE;
+	}	
+
+	/* left child */
+	if (NULL != pTree->pArr[index * 2]){
+		return C_FALSE;
+	}
+
+	/* left child */
+	if (NULL != pTree->pArr[index * 2] + 1){
+		return C_FALSE;
+	}
+
+	return C_TRUE;
 }
 
 /* print the btree by number */

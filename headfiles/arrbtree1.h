@@ -16,7 +16,6 @@
 typedef struct person_bt_arr{
 	int id;
 	char name[ARRBTREE1_NM_LEN];
-	C_BOOL is_valid;
 } PERSON_BT_ARR;
 
 typedef struct arr_btree_person{
@@ -24,8 +23,8 @@ typedef struct arr_btree_person{
 	/* judge whether this object is initail*/
 	C_BOOL is_initialed;
 
-	/* the array to contain the binary tree*/
-	PERSON_BT_ARR * pArr;
+	/* the array to contain the binary tree, it just store the pointer of person_bt_arr object*/
+	PERSON_BT_ARR ** pArr;
 
 	/* max length of the the array */
 	int max_arrlen;
@@ -46,7 +45,7 @@ typedef struct arr_btree_person{
 	int (* depth)(struct arr_btree_person *);
 
 	/* set root_node */
-	C_BOOL (* add_root)(struct arr_btree_person *, int, char *);
+	C_BOOL (* add_root)(struct arr_btree_person *, PERSON_BT_ARR *);
 
 	/* get the root node*/
 	PERSON_BT_ARR * (* get_root)(struct arr_btree_person *); 
@@ -67,16 +66,22 @@ typedef struct arr_btree_person{
 	PERSON_BT_ARR * (* get_rightbrother)(struct arr_btree_person *, PERSON_BT_ARR *); 
 
 	/* Insert childtree under a node with parameter left or right */
-	C_BOOL (* insert_child)(struct arr_btree_person *, PERSON_BT_ARR *, char, int, char *);
+	C_BOOL (* insert_child)(struct arr_btree_person *, PERSON_BT_ARR *, char, PERSON_BT_ARR *);
 
-	/* delete childtree under a node with parameter left or right , and with an output parameter to get the deleted node*/
+	/* delete and free a node with its childtree , and with an output parameter to get the deleted node*/
 	C_BOOL (* delete_node)(struct arr_btree_person *, PERSON_BT_ARR *, PERSON_BT_ARR *);
+
+	/* remove an node out from a tree, but don't free it */
+	C_BOOL (* remove_node)(struct arr_btree_person *, PERSON_BT_ARR *);
 
     /* move a childtree under another node */
 	C_BOOL (* move_child)(struct arr_btree_person *, PERSON_BT_ARR *, PERSON_BT_ARR *);
 
 	/* get the specified node by btree number, if fail, return NULL */
 	PERSON_BT_ARR * (* getnode)(struct arr_btree_person *, int);
+
+	/* judge whether a node is a leaf node */
+	C_BOOL (* is_leaf)(struct arr_btree_person *, PERSON_BT_ARR *);
 
 	/* print the btree by number */
 	void (* arr_print)(struct arr_btree_person *);
@@ -94,6 +99,12 @@ typedef struct arr_btree_person{
  */
 ARR_BTREE_P * arrbtree1_new(int);
 
+/*
+* initail a node with dynamic memory assigned
+*/
+PERSON_BT_ARR * personbt1_new(int, char*);
+
+
 /* destroy a binary tree container */
 void arrbtree1_free(ARR_BTREE_P *);
 
@@ -108,7 +119,6 @@ int arrbtree1_get_lc_idx(int);
 
 /* get the right child index of a node by index */
 int arrbtree1_get_rc_idx(int);
-
 
 
 
