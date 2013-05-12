@@ -40,7 +40,7 @@ static void arrbtree1_arr_print_name(ARR_BTREE_P * );
 * not member functions announce
 */
 static void arrbtree1_judge_init(ARR_BTREE_P *);
-C_BOOL arrbtree1_extend(ARR_BTREE_P *, int);
+static C_BOOL arrbtree1_extend(ARR_BTREE_P *, int);
 static void arrbtree1_recur_rm_nodes_by_idx(ARR_BTREE_P *, int);
 static void arrbtree1_recur_mv_nodes_by_idx(ARR_BTREE_P *, int, char, int);
 static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, int index);
@@ -128,7 +128,7 @@ static void arrbtree1_judge_init(ARR_BTREE_P * pTree){
 }
 
 /* extend the max length of the array , the parameter len is the length after extend */
-C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
+static C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 	arrbtree1_judge_init(pTree);
 
 	if (len <= pTree->max_arrlen){
@@ -145,11 +145,11 @@ C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 	}
 
 	int i;
-	for (i=pTree->max_arrlen + 1; i <= len; i++){
+	for (i=pTree->max_arrlen + 1; i < len; i++){
 		pTree->pArr[i]=NULL;
 	}
 
-	pTree->max_arrlen = len;
+	pTree->max_arrlen = len - 1;
 	return C_TRUE;
 }
 
@@ -213,9 +213,7 @@ void arrbtree1_free(ARR_BTREE_P * pTree){
 	arrbtree1_judge_init(pTree);
 	if (NULL != pTree->pArr){
 		/* free and remove all nodes */
-		pTree->arr_print_name(pTree);
 		pTree->clear(pTree);
-
 		free(pTree->pArr);
 		pTree->pArr = NULL;
 	}
@@ -289,7 +287,7 @@ static void arrbtree1_mv_one_node_by_idx(ARR_BTREE_P * pTree, int * index, char 
 	* if yes, we need to extend the array.
 	*/
 	if (index_c > pTree->max_arrlen){
-		if (C_FALSE == arrbtree1_extend(pTree, index_c * 2 + 1)){ //extend to its right child
+		if (C_FALSE == arrbtree1_extend(pTree, index_c * 2 + 1 + 1)){ //extend to its right child
 			base_error("fail to assign memory during moving nodes\n");
 		}
 	}
@@ -512,7 +510,9 @@ static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode,
 	 * here, we just set the length to fit the rightchildindex of childindex
 	 */
 	if (index_c > pTree->max_arrlen){
-		if (C_TRUE != arrbtree1_extend(pTree, index_c * 2 + 1)){
+		/* (index_c * 2 + 1) means the right child index of index_c,
+		 * it's the max index of the array after resize, so the count must be (index_c * 2 +1) + 1*/
+		if (C_TRUE != arrbtree1_extend(pTree, index_c * 2 + 1 + 1)){
 			return C_FALSE;
 		}
 	}

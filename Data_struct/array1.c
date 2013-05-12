@@ -333,7 +333,7 @@ int arrbtree_1(){
 int arrbtree_2(){
 	ARR_BTREE_P * pTree = arrbtree1_new(14);
 
-	arrbtree1_extend(pTree, 27);
+	//arrbtree1_extend(pTree, 27);
 	pTree->arr_print_name(pTree);
 	arrbtree1_free(pTree);
 	printf("arrbtree_1 done\n");
@@ -341,7 +341,7 @@ int arrbtree_2(){
 }
 int array1_main(){
 	int i=0;
-	i=arrbtree_2();
+	i=arrbtree_1();
 	//i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
