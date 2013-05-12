@@ -40,7 +40,7 @@ static void arrbtree1_arr_print_name(ARR_BTREE_P * );
 * not member functions announce
 */
 static void arrbtree1_judge_init(ARR_BTREE_P *);
-static C_BOOL arrbtree1_extend(ARR_BTREE_P *, int);
+C_BOOL arrbtree1_extend(ARR_BTREE_P *, int);
 static void arrbtree1_recur_rm_nodes_by_idx(ARR_BTREE_P *, int);
 static void arrbtree1_recur_mv_nodes_by_idx(ARR_BTREE_P *, int, char, int);
 static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, int index);
@@ -128,7 +128,7 @@ static void arrbtree1_judge_init(ARR_BTREE_P * pTree){
 }
 
 /* extend the max length of the array , the parameter len is the length after extend */
-static C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
+C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 	arrbtree1_judge_init(pTree);
 
 	if (len <= pTree->max_arrlen){
