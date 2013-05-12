@@ -10,7 +10,7 @@
 #define __ARRBTREE1_H_
 
 #ifndef ARRBTREE1_NM_LEN
-#define ARRBTREE1_NM_LEN 16
+#define ARRBTREE1_NM_LEN 5
 #endif
 
 typedef struct person_bt_arr{
@@ -44,7 +44,10 @@ typedef struct arr_btree_person{
 	/* number of floors of the binary tree */
 	int (* depth)(struct arr_btree_person *);
 
-	/* set root_node */
+	/* judge whether a node is contained in the tree */
+	C_BOOL (* is_contained)(struct arr_btree_person *, PERSON_BT_ARR *);
+
+	/* add root_node */
 	C_BOOL (* add_root)(struct arr_btree_person *, PERSON_BT_ARR *);
 
 	/* get the root node*/
@@ -72,10 +75,10 @@ typedef struct arr_btree_person{
 	C_BOOL (* delete_node)(struct arr_btree_person *, PERSON_BT_ARR *, PERSON_BT_ARR *);
 
 	/* remove an node out from a tree, but don't free it */
-	C_BOOL (* remove_node)(struct arr_btree_person *, PERSON_BT_ARR *);
+	C_BOOL (* remove_node)(struct arr_btree_person *, char, PERSON_BT_ARR *);
 
     /* move a childtree under another node */
-	C_BOOL (* move_child)(struct arr_btree_person *, PERSON_BT_ARR *, PERSON_BT_ARR *);
+	C_BOOL (* move_node)(struct arr_btree_person *, PERSON_BT_ARR *, char, PERSON_BT_ARR *);
 
 	/* get the specified node by btree number, if fail, return NULL */
 	PERSON_BT_ARR * (* getnode)(struct arr_btree_person *, int);
@@ -84,7 +87,7 @@ typedef struct arr_btree_person{
 	C_BOOL (* is_leaf)(struct arr_btree_person *, PERSON_BT_ARR *);
 
 	/* print the btree by number */
-	void (* arr_print)(struct arr_btree_person *);
+	void (* arr_print_name)(struct arr_btree_person *);
 
 
 
@@ -104,22 +107,13 @@ ARR_BTREE_P * arrbtree1_new(int);
 */
 PERSON_BT_ARR * personbt1_new(int, char*);
 
+/* destroy a node and free its memory */
+void personbt1_free(PERSON_BT_ARR *);
 
 /* destroy a binary tree container */
 void arrbtree1_free(ARR_BTREE_P *);
 
 /* get the index by node, if not existed , return -1 */
 int arrbtree1_get_node_idx(struct arr_btree_person *, PERSON_BT_ARR *);
-
-/* get the parent index by index*/
-int arrbtree1_get_p_idx(int);
-
-/* get the left child index of a node by index */
-int arrbtree1_get_lc_idx(int);
-
-/* get the right child index of a node by index */
-int arrbtree1_get_rc_idx(int);
-
-
 
 #endif /* ARRBTREE1_H_ */

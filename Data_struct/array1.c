@@ -4,6 +4,7 @@
 #include "linklist1.h"
 #include "stuck1.h"
 #include "linkqueue1.h"
+#include "arrbtree1.h"
 #include "arrqueue1.h"
 #include "arrstuck1.h"
 #include <stdlib.h>
@@ -297,16 +298,45 @@ int arrstuck1(){
 
 int arrbtree_1(){
 
+	ARR_BTREE_P * pTree = arrbtree1_new(13);
+
+	PERSON_BT_ARR * Nedved = personbt1_new(1, "Pavel");
+	PERSON_BT_ARR * Jason = personbt1_new(2, "Jason");
+	PERSON_BT_ARR * Peter = personbt1_new(3, "Peter");
+	PERSON_BT_ARR * Crystal = personbt1_new(4, "David");
+	PERSON_BT_ARR * Hebe = personbt1_new(5, "Hebe");
+	PERSON_BT_ARR * Lulu = personbt1_new(6, "Lulu");
+	PERSON_BT_ARR * Cindy = personbt1_new(7, "Cindy");
+	PERSON_BT_ARR * Pippo = personbt1_new(7, "Pippo");
 
 
-	float x = 123.45;
-	float y = log2(x);
 
-	printf("x is %f\n", x);
+	pTree->add_root(pTree, Nedved);
+	pTree->insert_child(pTree, Jason, 'L', Nedved);
+	pTree->insert_child(pTree, Peter, 'R', Jason);
+	pTree->insert_child(pTree, Crystal, 'L', Jason);
+	pTree->insert_child(pTree, Hebe, 'R', Nedved);
+	pTree->insert_child(pTree, Lulu, 'R', Hebe);
+	pTree->insert_child(pTree, Cindy, 'R', Peter);
+	pTree->insert_child(pTree, Pippo, 'L', Lulu);
+
+	pTree->arr_print_name(pTree);
+	printf("count of tree is %d\n", pTree->count);
+	printf("current max_len of tree is %d\n", pTree->max_arrlen);
+	arrbtree1_free(pTree);
+
+
 	printf("arrbtree_1 done\n");
 	return 0;
 }
 
+int arrbtree_2(){
+	ARR_BTREE_P * pTree = arrbtree1_new(13);
+	
+
+	pTree->arr_print_name(pTree);
+
+}
 int array1_main(){
 	int i=0;
 	i=arrbtree_1();

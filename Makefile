@@ -4,8 +4,6 @@ OBJS=main.o sort.o array_funcs.o malloc_1.o array.o array1.o char_array.o bisear
 HEADPATH=./headfiles/
 
 
-all: cleanall ${EXEC}
-
 $(EXEC): ${OBJS}
 	${CC} ${OBJS} -o ${EXEC} -lm
 
@@ -92,6 +90,7 @@ cleanall:
 clean:
 	rm -rf *o
 
+all: cleanall ${EXEC}
 
 ###  $< ==> means the first one of the objs which are depended ex main.c of line 12
 ###  $@ ==> means the current obj
