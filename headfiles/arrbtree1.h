@@ -75,7 +75,7 @@ typedef struct arr_btree_person{
 	C_BOOL (* delete_node)(struct arr_btree_person *, PERSON_BT_ARR *, PERSON_BT_ARR *);
 
 	/* remove an node out from a tree, but don't free it */
-	C_BOOL (* remove_node)(struct arr_btree_person *, char, PERSON_BT_ARR *);
+	C_BOOL (* remove_node)(struct arr_btree_person *, PERSON_BT_ARR *);
 
     /* move a childtree under another node */
 	C_BOOL (* move_node)(struct arr_btree_person *, PERSON_BT_ARR *, char, PERSON_BT_ARR *);

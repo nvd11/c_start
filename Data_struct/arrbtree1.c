@@ -29,7 +29,7 @@ static PERSON_BT_ARR * arrbtree1_get_leftbrother(ARR_BTREE_P * pTree, PERSON_BT_
 static PERSON_BT_ARR * arrbtree1_get_rightbrother(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
 static C_BOOL arrbtree1_insert_child(ARR_BTREE_P *, PERSON_BT_ARR *,char , PERSON_BT_ARR *);
 static C_BOOL arrbtree1_delete_node(ARR_BTREE_P *, PERSON_BT_ARR *, PERSON_BT_ARR *);
-static C_BOOL arrbtree1_remove_node(ARR_BTREE_P *, char,PERSON_BT_ARR *);
+static C_BOOL arrbtree1_remove_node(ARR_BTREE_P *, PERSON_BT_ARR *);
 static C_BOOL arrbtree1_move_node(ARR_BTREE_P *, PERSON_BT_ARR *, char, PERSON_BT_ARR *);
 static PERSON_BT_ARR * arrbtree1_getnode(ARR_BTREE_P * , int);
 static C_BOOL arrbtree1_is_leaf(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
@@ -46,7 +46,7 @@ static void arrbtree1_recur_mv_nodes_by_idx(ARR_BTREE_P *, int, char, int);
 static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, int index);
 static void arrbtree1_mv_one_node_by_idx(ARR_BTREE_P *, int *, char, int);
 static C_BOOL arrbtree1_is_ancestor_by_idx(int, int);
-static C_BOOL arrbtree1_get_depth_by_idx(int);
+static int arrbtree1_get_depth_by_idx(int);
 
 
 /*************************************************
@@ -170,7 +170,7 @@ int arrbtree1_get_idx_by_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
  */
 static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, int index){
 	if (index > pTree->max_arrlen){
-		printf("arrbtree1_recur_get_idx, overflow\n");
+		//printf("arrbtree1_recur_get_idx, overflow\n");
 		return -1;
 	}
 
@@ -308,7 +308,7 @@ static C_BOOL arrbtree1_is_ancestor_by_idx(int index_a, int index_c){
 	return C_FALSE;	
 }
 
-static C_BOOL arrbtree1_get_depth_by_idx(int index){
+static int arrbtree1_get_depth_by_idx(int index){
 	/*
 	 * log2 is logarithm function with base 2.
 	 * floor return the largest integral which is not greater than parameter  ex. floor(1.5) = 1
@@ -330,7 +330,7 @@ static C_BOOL arrbtree1_get_depth_by_idx(int index){
 /* count of total of elements of the binary tree(or array) */
 static int arrbtree1_total_count(ARR_BTREE_P * pTree){
 	arrbtree1_judge_init(pTree);
-	return pTree->max_arrlen -1;
+	return pTree->max_arrlen;
 }
 
 /* clear and free all the nodes from the tree */
@@ -362,7 +362,7 @@ static int arrbtree1_getdepth(ARR_BTREE_P * pTree){
 
 	/* get the max index of valid nodes */
 	int i = pTree->max_arrlen;
-	while(i > 0 || NULL == pTree->pArr[i]){
+	while(i > 0 && NULL == pTree->pArr[i]){
 		i--;
 	}
 
@@ -536,19 +536,22 @@ static C_BOOL arrbtree1_delete_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, 
 		return C_FALSE;
 	}
 
+	memcpy(poutput, pNode, sizeof(PERSON_BT_ARR));
+
 	arrbtree1_recur_rm_nodes_by_idx(pTree, index);
 	return C_TRUE;
 }	
 
 /* remove an node out from a tree, but don't free it */
-static C_BOOL arrbtree1_remove_node(ARR_BTREE_P * pTree, char side,PERSON_BT_ARR * pNode){
+static C_BOOL arrbtree1_remove_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
 	if (C_TRUE != pTree->is_leaf(pTree, pNode)){
-		printf("the node is not a leaf node or not existed in the binary tree!\n");
+		printf("\nerror of remove_node:\nthe node is not a leaf node or not existed in the binary tree!\n");
 		return C_FALSE;
 	}
 
 	int index = arrbtree1_get_idx_by_node(pTree, pNode);
 	pTree->pArr[index] = NULL;
+	pTree->count--;
 
 	return C_TRUE;
 }

@@ -297,32 +297,81 @@ int arrstuck1(){
 }
 
 int arrbtree_1(){
+	/* test arrbtree1_new() */
+	ARR_BTREE_P * pTree = arrbtree1_new(11);
 
-	ARR_BTREE_P * pTree = arrbtree1_new(13);
+	/* test is_empty() */
+	if (C_TRUE == pTree->is_empty(pTree)){
+		printf("the tree is empty !\n");
+	}
 
 	PERSON_BT_ARR * Nedved = personbt1_new(1, "Pavel");
 	PERSON_BT_ARR * Jason = personbt1_new(2, "Jason");
 	PERSON_BT_ARR * Peter = personbt1_new(3, "Peter");
-	PERSON_BT_ARR * Crystal = personbt1_new(4, "David");
+	PERSON_BT_ARR * David = personbt1_new(4, "David");
 	PERSON_BT_ARR * Hebe = personbt1_new(5, "Hebe");
 	PERSON_BT_ARR * Lulu = personbt1_new(6, "Lulu");
 	PERSON_BT_ARR * Cindy = personbt1_new(7, "Cindy");
-	PERSON_BT_ARR * Pippo = personbt1_new(7, "Pippo");
+	PERSON_BT_ARR * Pippo = personbt1_new(8, "Pippo");
+	PERSON_BT_ARR * Bobo = personbt1_new(9, "Bobo");
 
-
-
+	/* test add_root()  */
 	pTree->add_root(pTree, Nedved);
+	/* test insert_node()->is_contained()->get_idx_by_node() */
 	pTree->insert_child(pTree, Jason, 'L', Nedved);
 	pTree->insert_child(pTree, Peter, 'R', Jason);
-	pTree->insert_child(pTree, Crystal, 'L', Jason);
+	pTree->insert_child(pTree, David, 'L', Jason);
 	pTree->insert_child(pTree, Hebe, 'R', Nedved);
 	pTree->insert_child(pTree, Lulu, 'R', Hebe);
 	pTree->insert_child(pTree, Cindy, 'R', Peter);
+	/* test arrbtree1_extend */
 	pTree->insert_child(pTree, Pippo, 'L', Lulu);
+	pTree->insert_child(pTree, Bobo, 'R', Pippo);
 
 	pTree->arr_print_name(pTree);
 	printf("count of tree is %d\n", pTree->count);
-	printf("current max_len of tree is %d\n", pTree->max_arrlen);
+	printf("depth of the tree is %d\n", pTree->depth(pTree));
+	printf("current max_len of tree is %d\n", pTree->total_count(pTree));
+
+	printf("\n*******************************\n");
+	printf("test some funtions\n");
+	printf("*******************************\n");
+
+	printf("Peter's Parent is %s\n", pTree->get_parent(pTree, Peter)->name);
+	printf("Jason's Left child is %s\n", pTree->get_leftchild(pTree, Jason)->name);
+	printf("Hebe's Right child is %s\n", pTree->get_rightchild(pTree, Hebe)->name);
+	printf("David's Right brother is %s\n", pTree->get_rightbrother(pTree, David)->name);
+	printf("Hebe's left brother is %s\n", pTree->get_leftbrother(pTree, Hebe)->name);
+	if (NULL == pTree->get_leftbrother(pTree, David))
+		printf("David has no left brother\n");
+
+	printf("the node with index is 3 is %s\n", pTree->getnode(pTree,3)->name);
+
+
+	printf("\n*******************************\n");
+	printf("test some operate funtions\n");
+	printf("*******************************\n");
+
+	pTree->move_node(pTree, Jason, 'L', Bobo);
+
+	pTree->arr_print_name(pTree);
+	printf("count of tree is %d\n", pTree->count);
+	printf("depth of the tree is %d\n", pTree->depth(pTree));
+	printf("current max_len of tree is %d\n", pTree->total_count(pTree));
+
+	pTree->remove_node(pTree,Cindy);
+	pTree->remove_node(pTree,Lulu);
+
+	PERSON_BT_ARR Deleted_node;
+	pTree->delete_node(pTree, Lulu, &Deleted_node);
+	printf("child with root_node is %s has been deleted!!\n", Deleted_node.name);
+
+	pTree->arr_print_name(pTree);
+	printf("count of tree is %d\n", pTree->count);
+	printf("depth of the tree is %d\n", pTree->depth(pTree));
+	printf("current max_len of tree is %d\n", pTree->total_count(pTree));
+
+	/* test free()->clear() */
 	arrbtree1_free(pTree);
 
 
