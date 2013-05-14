@@ -300,10 +300,11 @@ static void arrbtree1_mv_one_node_by_idx(ARR_BTREE_P * pTree, int * index, char 
 
 /* judge whether node is another node's ancestor */
 static C_BOOL arrbtree1_is_ancestor_by_idx(int index_a, int index_c){
-	while(index_c > 1 || arrbtree1_get_depth_by_idx(index_a) > arrbtree1_get_depth_by_idx(index_c)){
+	while(index_c > 1 && arrbtree1_get_depth_by_idx(index_a) > arrbtree1_get_depth_by_idx(index_c)){
 		if((int)(index_c/2) == index_a){
 			return C_TRUE;
 		}
+		index_c = (int)(index_c/2);
 	}
 	return C_FALSE;	
 }
@@ -428,7 +429,7 @@ static PERSON_BT_ARR *  arrbtree1_get_leftchild(ARR_BTREE_P * pTree, PERSON_BT_A
 		return NULL;
 	}
 
-	return pTree->pArr[index * 2];
+	return pTree->getnode(pTree, index * 2);
 } 
 
 /* get the right child node of node, if there's no right child then return NULL */
@@ -440,7 +441,7 @@ static PERSON_BT_ARR *  arrbtree1_get_rightchild(ARR_BTREE_P * pTree, PERSON_BT_
 		return NULL;
 	}
 
-	return pTree->pArr[index * 2 + 1];
+	return pTree->getnode(pTree, index * 2 + 1);
 } 
 
 /* get the left brother(close to) node of node, if there's no left brother then return NULL */
@@ -454,7 +455,7 @@ static PERSON_BT_ARR * arrbtree1_get_leftbrother(ARR_BTREE_P * pTree, PERSON_BT_
 
 	/* not the rootnode of the binary tree and index is and odd number */
 	if ((1 < index) && (1 == index % 2)){
-		return pTree->pArr[index - 1];
+		return pTree->getnode(pTree, index - 1);
 	}
 
 	return NULL;
@@ -471,7 +472,7 @@ static PERSON_BT_ARR * arrbtree1_get_rightbrother(ARR_BTREE_P * pTree, PERSON_BT
 
 	/* not the rootnode of the binary tree and index is and even number */
 	if ((1 < index) && (0 == index % 2)){
-		return pTree->pArr[index + 1];
+		return pTree->getnode(pTree, index + 1);
 	}
 
 	return NULL;
@@ -494,7 +495,6 @@ static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode,
 
 	if (0 > index_p){
 		printf("the parent node is not existed in the binary tree!\n");
-		printf("abc\n");
 		return C_FALSE;
 	}
 
@@ -575,15 +575,14 @@ static C_BOOL arrbtree1_move_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, ch
 		return C_FALSE;
 	}
 
-	int index_c;
+	PERSON_BT_ARR * (* get_child)(ARR_BTREE_P *, PERSON_BT_ARR *);
 	if ('L' == side){
-		index_c = index_p * 2;
-	}
-	else{
-		index_c = index_p * 2 + 1;
+		get_child = arrbtree1_get_leftchild;
+	}else{
+		get_child = arrbtree1_get_rightchild;
 	}
 
-	if (NULL != pTree->pArr[index_c]){
+	if (NULL != get_child(pTree, pParent)){
 		printf("the Parent node has the %c child already!\n",side);
 		return C_FALSE;
 	}
@@ -596,7 +595,6 @@ static C_BOOL arrbtree1_move_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, ch
 	/* recursion to mv the node and his childtrees to new place */
 	arrbtree1_recur_mv_nodes_by_idx(pTree, index, side, index_p);
 	return C_TRUE;
-
 }
 
 /* get the specified node by btree number, if fail, return NULL */

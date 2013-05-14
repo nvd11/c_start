@@ -352,7 +352,12 @@ int arrbtree_1(){
 	printf("test some operate funtions\n");
 	printf("*******************************\n");
 
-	pTree->move_node(pTree, Jason, 'L', Bobo);
+
+	printf("moved Jason to leftchild of Hebe\n");
+	pTree->move_node(pTree, Jason, 'L', Hebe);
+	printf("Jason's index is %d\n", arrbtree1_get_idx_by_node(pTree,Jason));
+	printf("David's index is %d\n", arrbtree1_get_idx_by_node(pTree,David));
+	printf("Cindy's index is %d\n", arrbtree1_get_idx_by_node(pTree,Cindy));
 
 	pTree->arr_print_name(pTree);
 	printf("count of tree is %d\n", pTree->count);
