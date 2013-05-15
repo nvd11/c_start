@@ -24,7 +24,7 @@ typedef struct arr_btree_person{
 	C_BOOL is_initialed;
 
 	/* the array to contain the binary tree, it just store the pointer of person_bt_arr object*/
-	PERSON_BT_ARR ** pArr;
+	PERSON_BT_ARR ** pAddr;
 
 	/* max length of the the array */
 	int max_arrlen;

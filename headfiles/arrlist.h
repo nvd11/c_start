@@ -16,7 +16,7 @@
 	C_BOOL Arr_add(ARRINT * pArr, int val);   // add an element to the end of array
         C_BOOL Arr_insert(ARRINT * pArr, int position, int val); // insert an element to any place
 	C_BOOL Arr_delete(ARRINT * pArr, int index); // delete an element
-	int Arr_get(ARRINT * pArr, int index);  //get the index of an element by value
+	int Arr_get(ARRINT * pArr, int index);  //get the value of an element by index
 	C_BOOL Arr_set(ARRINT * pArr, int index, int val);  //set the value to specified element in the array 
 	C_BOOL Arr_is_empty(ARRINT * pArr); 
 	C_BOOL Arr_is_full(ARRINT * pArr); 

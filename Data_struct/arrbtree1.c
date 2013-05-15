@@ -67,18 +67,18 @@ ARR_BTREE_P * arrbtree1_new(int init_count){
 		base_error("fail to assign memory to a binary tree!!");
 	}
 
-	PERSON_BT_ARR ** pArr = (PERSON_BT_ARR **)malloc(sizeof(PERSON_BT_ARR *) * (init_count+1));
-	if (NULL == pArr){
+	PERSON_BT_ARR ** pAddr = (PERSON_BT_ARR **)malloc(sizeof(PERSON_BT_ARR *) * (init_count+1));
+	if (NULL == pAddr){
 		base_error("fail to assign memory to an array for a binary tree!!");
 	}
 
 	/* set all the elements NULL */
 	int i;
 	for (i=0; i <= init_count; i++){
-		pArr[i] = NULL;
+		pAddr[i] = NULL;
 	}
 
-	pTree->pArr = pArr;
+	pTree->pAddr = pAddr;
 	pTree->count = 0;
 	pTree->max_arrlen = init_count;
 	pTree->total_count = arrbtree1_total_count;
@@ -136,17 +136,17 @@ static C_BOOL arrbtree1_extend(ARR_BTREE_P * pTree, int len){
 		return C_FALSE;
 	}
 
-	PERSON_BT_ARR ** pold = pTree->pArr;
-	pTree->pArr = (PERSON_BT_ARR **)realloc(pTree->pArr, sizeof(PERSON_BT_ARR *) * len);
-	if (NULL == pTree->pArr){
+	PERSON_BT_ARR ** pold = pTree->pAddr;
+	pTree->pAddr = (PERSON_BT_ARR **)realloc(pTree->pAddr, sizeof(PERSON_BT_ARR *) * len);
+	if (NULL == pTree->pAddr){
 		printf("fail to assign memory to extend the array!\n");
-		pTree->pArr = pold;
+		pTree->pAddr = pold;
 		return C_FALSE;
 	}
 
 	int i;
 	for (i=pTree->max_arrlen + 1; i < len; i++){
-		pTree->pArr[i]=NULL;
+		pTree->pAddr[i]=NULL;
 	}
 
 	pTree->max_arrlen = len - 1;
@@ -175,14 +175,14 @@ static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, i
 	}
 
 	/* step 1, visit the root node */
-	if (pNode == pTree->pArr[index]){
+	if (pNode == pTree->pAddr[index]){
 		return index;
 	}
 
 	int index_r;
 	/* step2, visit the left child tree */
 	index *= 2;
-	if (NULL != pTree->pArr[index]){
+	if (NULL != pTree->pAddr[index]){
 		index_r = arrbtree1_recur_get_idx(pTree, pNode, index);
 		if (-1 != index_r)
 			return index_r;
@@ -190,7 +190,7 @@ static int arrbtree1_recur_get_idx(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode, i
 
 	/* step3, visit the right child tree */
 	index++;
-	if (NULL != pTree->pArr[index]){
+	if (NULL != pTree->pAddr[index]){
 		index_r = arrbtree1_recur_get_idx(pTree, pNode, index);
 		if (-1 != index_r)
 			return index_r;
@@ -211,11 +211,11 @@ void personbt1_free(PERSON_BT_ARR * pNode){
 /* destroy a binary tree container */
 void arrbtree1_free(ARR_BTREE_P * pTree){
 	arrbtree1_judge_init(pTree);
-	if (NULL != pTree->pArr){
+	if (NULL != pTree->pAddr){
 		/* free and remove all nodes */
 		pTree->clear(pTree);
-		free(pTree->pArr);
-		pTree->pArr = NULL;
+		free(pTree->pAddr);
+		pTree->pAddr = NULL;
 	}
 	free(pTree);
 	pTree = NULL;
@@ -230,19 +230,19 @@ static void arrbtree1_recur_rm_nodes_by_idx(ARR_BTREE_P * pTree, int index){
 	int index_c = index * 2;
 
 	/* step1, remove the left child tree */
-	if (index_c <= pTree->max_arrlen && NULL != pTree->pArr[index_c]){
+	if (index_c <= pTree->max_arrlen && NULL != pTree->pAddr[index_c]){
 		arrbtree1_recur_rm_nodes_by_idx(pTree,index_c);
 	}
 
 	/* step2, remove the right child tree */
 	index_c++;
-	if (index_c <= pTree->max_arrlen && NULL != pTree->pArr[index_c]){
+	if (index_c <= pTree->max_arrlen && NULL != pTree->pAddr[index_c]){
 		arrbtree1_recur_rm_nodes_by_idx(pTree,index_c);
 	}
 
 	/* step3, remove and free the root node */
-	personbt1_free(pTree->pArr[index]);
-	pTree->pArr[index] = NULL;
+	personbt1_free(pTree->pAddr[index]);
+	pTree->pAddr[index] = NULL;
 	pTree->count--;
 
 	return;
@@ -261,13 +261,13 @@ static void arrbtree1_recur_mv_nodes_by_idx(ARR_BTREE_P * pTree, int index, char
 	arrbtree1_mv_one_node_by_idx(pTree, &index, side, index_p);
 
 	/* step 2, move the left childtree to the node in new place */
-	if (NULL != pTree->pArr[index_c]){
+	if (NULL != pTree->pAddr[index_c]){
 		arrbtree1_recur_mv_nodes_by_idx(pTree, index_c, 'L', index);
 	}
 
 	/* step 3, move the right childtree to the node in new place */
 	index_c++;
-	if (NULL != pTree->pArr[index_c]){
+	if (NULL != pTree->pAddr[index_c]){
 		arrbtree1_recur_mv_nodes_by_idx(pTree, index_c, 'R', index);
 	}
 	return;
@@ -292,8 +292,8 @@ static void arrbtree1_mv_one_node_by_idx(ARR_BTREE_P * pTree, int * index, char 
 		}
 	}
 
-	pTree->pArr[index_c] = pTree->pArr[*index];
-	pTree->pArr[*index] = NULL;
+	pTree->pAddr[index_c] = pTree->pAddr[*index];
+	pTree->pAddr[*index] = NULL;
 	*index = index_c;
 	return;
 }
@@ -363,7 +363,7 @@ static int arrbtree1_getdepth(ARR_BTREE_P * pTree){
 
 	/* get the max index of valid nodes */
 	int i = pTree->max_arrlen;
-	while(i > 0 && NULL == pTree->pArr[i]){
+	while(i > 0 && NULL == pTree->pAddr[i]){
 		i--;
 	}
 
@@ -386,12 +386,12 @@ static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode
 		return C_FALSE;
 	}
 
-	if (NULL != pTree->pArr[1]){
+	if (NULL != pTree->pAddr[1]){
 		printf("the root node is existed already!\n");
 		return C_FALSE;
 	}
 
-	pTree->pArr[1] = pNode;
+	pTree->pAddr[1] = pNode;
 	pTree->count++;
 		
 	return C_TRUE;
@@ -400,7 +400,7 @@ static C_BOOL  arrbtree1_add_rootnode(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode
 /* get the root node*/
 static PERSON_BT_ARR *  arrbtree1_get_rootnode(ARR_BTREE_P * pTree){
 	arrbtree1_judge_init(pTree);
-	return pTree->pArr[1];
+	return pTree->pAddr[1];
 } 
 
 /* get the parent node of a node */
@@ -414,7 +414,7 @@ static PERSON_BT_ARR *  arrbtree1_get_parent(ARR_BTREE_P * pTree, PERSON_BT_ARR 
 
 	/* not the rootnode of the binary tree */
 	if (1 < index){
-		return pTree->pArr[(int)(index / 2)];
+		return pTree->pAddr[(int)(index / 2)];
 	}
 
 	return NULL;
@@ -517,12 +517,12 @@ static C_BOOL arrbtree1_insert_child(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode,
 		}
 	}
 
-	if (NULL != pTree->pArr[index_c]){
+	if (NULL != pTree->pAddr[index_c]){
 		printf("the node have %c child already!\n", side);
 		return C_FALSE;
 	}
 
-	pTree->pArr[index_c] = pNode;
+	pTree->pAddr[index_c] = pNode;
 
 	pTree->count++;
 	return C_TRUE;
@@ -550,7 +550,7 @@ static C_BOOL arrbtree1_remove_node(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode){
 	}
 
 	int index = arrbtree1_get_idx_by_node(pTree, pNode);
-	pTree->pArr[index] = NULL;
+	pTree->pAddr[index] = NULL;
 	pTree->count--;
 
 	return C_TRUE;
@@ -602,11 +602,11 @@ static PERSON_BT_ARR * arrbtree1_getnode(ARR_BTREE_P * pTree, int index){
 	arrbtree1_judge_init(pTree);
 
 	if (1 > index || pTree->max_arrlen < index){
-		printf("the index is over scope\n!");
+		printf("the index is over scope!\n");
 		return NULL;
 	}
 
-	return pTree->pArr[index];
+	return pTree->pAddr[index];
 }
 
 /* judge whether a node is a leaf node */
@@ -626,8 +626,8 @@ static void arrbtree1_arr_print_name(ARR_BTREE_P * pTree){
 	int i;
 	int len = pTree->max_arrlen;
 	for (i=1; i <= len; i++){
-		if (NULL != pTree->pArr[i]){
-			printf("%s",pTree->pArr[i]->name);
+		if (NULL != pTree->pAddr[i]){
+			printf("%s",pTree->pAddr[i]->name);
 		}else{
 			printf("NULL");		
 		}

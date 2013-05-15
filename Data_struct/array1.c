@@ -7,8 +7,10 @@
 #include "arrbtree1.h"
 #include "arrqueue1.h"
 #include "arrstuck1.h"
+#include "str_array1.h"
 #include <stdlib.h>
 #include <base_math.h>
+
 
 
 
@@ -393,9 +395,16 @@ int arrbtree_2(){
 	printf("arrbtree_1 done\n");
 	return 0;
 }
+
+int str_array1(){
+	str_arr_new(10);
+	return 0;
+}
+
 int array1_main(){
 	int i=0;
 	i=arrbtree_1();
+	i=str_array1();
 	//i=array1_1();
 	//i=stuck_1();
 	//i = linkqueue1();
