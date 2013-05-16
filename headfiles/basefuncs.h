@@ -5,6 +5,7 @@
  *      Author: gateman
  */
 
+#include "bool_me.h"
 #ifndef __BASEFUNCS_H_
 #define __BASEFUNCS_H_
 

@@ -1,7 +1,7 @@
 #include <bool_me.h>
 
 #ifndef __STR_ARRAY1_H_
-#define __STR_ARRAY1_H_
+#define __STR_ARRAY	1_H_
 
 	typedef struct string_array{
 		char ** pAddr;
@@ -26,6 +26,9 @@
 
 		/* whether the string is empty */
 		C_BOOL (* is_empty)(struct string_array *); 
+
+		/* whether the string is full */
+		C_BOOL (* is_full)(struct string_array *); 
 
 		/* printf all the string of the array */
 		void (* print)(struct string_array *);
