@@ -4,10 +4,12 @@
 #define __STR_ARRAY	1_H_
 
 	typedef struct string_array{
-		char ** pAddr;
+		const char ** pAddr;
 		int cur_len;
 		int max_len;
 		int increment;
+
+		C_BOOL is_initialed;
 
 		/* add a string to tail of the the array */
 		C_BOOL (* add)(struct string_array *, const char *);
@@ -22,7 +24,7 @@
 		C_BOOL (* set_val)(struct string_array *, int, const char *);
 
 		/* get string from the array by index */
-		char * (* get_val)(struct string_array *, int);
+		const char * (* get_val)(struct string_array *, int);
 
 		/* whether the string is empty */
 		C_BOOL (* is_empty)(struct string_array *); 
@@ -33,11 +35,13 @@
 		/* printf all the string of the array */
 		void (* print)(struct string_array *);
 
-			
+
 	} STR_ARR;
 
 	/* initail a string array */
 	STR_ARR * str_arr_new(int);
 
+	/* free the array */
+	C_BOOL str_arr_free(STR_ARR *);
 	
 #endif

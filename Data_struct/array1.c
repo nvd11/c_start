@@ -7,8 +7,8 @@
 #include "arrbtree1.h"
 #include "arrqueue1.h"
 #include "arrstuck1.h"
-#include "str_array1.h"
 #include <stdlib.h>
+#include "str_array1.h"
 #include <base_math.h>
 
 
@@ -397,7 +397,35 @@ int arrbtree_2(){
 }
 
 int str_array1(){
-	str_arr_new(10);
+	STR_ARR * pSa = str_arr_new(5);
+	pSa->add(pSa, "gateman");
+	pSa->add(pSa, "Cindy");
+	pSa->add(pSa, "Ruler");
+	pSa->add(pSa, NULL);
+	pSa->add(pSa, "Bobo");
+
+	printf("max_len of pSa is %d\n", pSa->max_len);
+
+	pSa->add(pSa, "Windy");
+	pSa->insert(pSa, 2, "Lulu");
+	pSa->insert(pSa, 2, "Zoy");
+	pSa->insert(pSa, 2, "Nedved");
+	pSa->insert(pSa, 2, "Busy");
+	printf("max_len of pSa is %d\n", pSa->max_len);
+	pSa->print(pSa);
+
+	const char * pruler;
+	pSa->delete(pSa, 2, &pruler);
+
+	pSa->insert(pSa, 8, "Gordon");
+	pSa->insert(pSa, 6, NULL);
+	pSa->set_val(pSa, 1, "Hebe");
+
+	printf("deleted string is %s\n", pruler); 
+	pSa->print(pSa);
+
+	printf("max_len of pSa is %d\n", pSa->max_len);
+	str_arr_free(pSa);
 	return 0;
 }
 
