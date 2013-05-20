@@ -89,7 +89,8 @@ typedef struct arr_btree_person{
 	/* print the btree by number */
 	void (* arr_print_name)(struct arr_btree_person *);
 
-
+	/* print the btree horizontal */
+	void (* print_hor)(struct arr_btree_person *);
 
 
 } ARR_BTREE_P;

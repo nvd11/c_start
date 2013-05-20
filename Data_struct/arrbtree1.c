@@ -34,7 +34,7 @@ static C_BOOL arrbtree1_move_node(ARR_BTREE_P *, PERSON_BT_ARR *, char, PERSON_B
 static PERSON_BT_ARR * arrbtree1_getnode(ARR_BTREE_P * , int);
 static C_BOOL arrbtree1_is_leaf(ARR_BTREE_P * pTree, PERSON_BT_ARR * pNode);
 static void arrbtree1_arr_print_name(ARR_BTREE_P * );
-
+static void arrbtree1_print_hor(ARR_BTREE_P *);
 
 /*
 * not member functions announce
@@ -100,6 +100,7 @@ ARR_BTREE_P * arrbtree1_new(int init_count){
 	pTree->getnode = arrbtree1_getnode;
 	pTree->is_leaf = arrbtree1_is_leaf;
 	pTree->arr_print_name = arrbtree1_arr_print_name;
+	pTree->print_hor = arrbtree1_print_hor;
 
 	pTree->is_initialed = C_TRUE;
 	return pTree;
@@ -639,3 +640,7 @@ static void arrbtree1_arr_print_name(ARR_BTREE_P * pTree){
 	return;
 }
 
+/* print the btree */
+static void arrbtree1_print_hor(ARR_BTREE_P * pTree){
+	return;
+} 
