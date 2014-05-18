@@ -29,7 +29,7 @@ LINKPERSON * link_create(int len){
 	}
 
 	int i;
-	char * name[16];
+	//char * name[16];
 	PERSON * pnode;
 	for(i=0;i<len;i++){
 		char name[16];

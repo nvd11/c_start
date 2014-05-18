@@ -15,7 +15,7 @@ int i;
 int main(){
 	//i = sort(); // sort.h
 	//i = array_main(); // array.h
-	i = array1_main(); // array1.h
+	//i = array1_main(); // array1.h
 	//i = recur_main(); // recursion.h
 	//i = fork1_main(); // fork1.h
 
@@ -26,7 +26,7 @@ int main(){
 	//i = char_array1(); // char_array.h
 	//i = char_array2(); // char_array.h
 	//i = char_array3(); // char_array.h
-	//i = char_array4(); // char_array.h
+	i = char_array4(); // char_array.h
 	//i = char_array5(); // char_array.h
 	//i = char_array6(); // char_array.h
 
